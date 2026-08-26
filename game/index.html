@@ -50,6 +50,44 @@
     #crayon-rush-app .runner-arena.live .start-hint{display:none}
     #crayon-rush-app .runner-arena.live .runner-ground:after{animation-duration:var(--ground-speed,.7s)}
     @media(max-width:520px){#crayon-rush-app .runner-characters{grid-template-columns:repeat(3,1fr)}#crayon-rush-app .runner-arena{height:285px}#crayon-rush-app .runner-avatar{left:44px;width:62px;height:62px;bottom:58px}}
+
+    /* Runner size / grounding fix */
+    #crayon-rush-app .runner-avatar{
+      left:56px !important;
+      bottom:61px !important;
+      width:92px !important;
+      height:92px !important;
+      display:flex !important;
+      align-items:flex-end !important;
+      justify-content:center !important;
+      font-size:78px !important;
+      line-height:.9 !important;
+      font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif !important;
+      background:transparent !important;
+      border:0 !important;
+      box-shadow:none !important;
+      overflow:visible !important;
+      transform:translateY(0);
+      transform-origin:center bottom;
+      filter:drop-shadow(3px 4px 0 rgba(39,32,25,.16));
+    }
+    #crayon-rush-app .runner-avatar.running{
+      animation:runnerGroundBob .16s steps(2,end) infinite alternate;
+    }
+    @keyframes runnerGroundBob{
+      from{rotate:-2deg}
+      to{rotate:2deg}
+    }
+    #crayon-rush-app .runner-avatar img{display:none !important}
+    @media(max-width:520px){
+      #crayon-rush-app .runner-avatar{
+        left:34px !important;
+        bottom:61px !important;
+        width:82px !important;
+        height:82px !important;
+        font-size:70px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -353,7 +391,7 @@
     const buyWlBtn=$('#buyWlBtn'),shopStatus=$('#shopStatus'),walletCard=$('#walletCard'),walletForm=$('#walletForm'),walletInput=$('#walletInput'),walletStatus=$('#walletStatus');
     const idHandle=$('#idHandle'),downloadCard=$('#downloadCard'),shareCardBtn=$('#shareCardBtn'),shareStatus=$('#shareStatus'),cardWrap=$('.card-wrap'),wlRemainingEl=$('#wlRemaining'),resetCountdown=$('#resetCountdown');
     const wlPrice=1000,ALLOWED_CHARS=['🐉','🤖','⭐','👻','🍄','🐙'];
-    const BASE_SPEED=300,ACCEL=8.5,MAX_SPEED=720,SCORE_DIVISOR=12,GRAVITY=2150,JUMP_VELOCITY=760;
+    const BASE_SPEED=300,ACCEL=8.5,MAX_SPEED=720,SCORE_DIVISOR=12,GRAVITY=2500,JUMP_VELOCITY=660;
     let selectedChar='',twitterHandle='',gameSessionId='',serverResetAt=0,profile={rpBalance:0,races:0,bestScore:0,todayBestRP:0,previousDaysRP:0,wlClaimed:false,wallet:null};
     let running=false,raf=0,lastFrame=0,startPerf=0,distancePx=0,score=0,cleared=0,jumpY=0,jumpVelocity=0,nextSpawnAt=0,obstacles=[],jumpCount=0;
 
@@ -364,7 +402,7 @@
     function gateReady(){const ready=Boolean(selectedChar&&twitterHandle);startBtn.disabled=!ready||running;entryStatus.textContent=ready?(selectedChar+' '+twitterHandle+' is locked in. Start your Rush!'):'Pick a runner + submit your X handle to unlock START RUSH.'}
 
     characters.forEach(btn=>btn.addEventListener('click',async()=>{
-      selectedChar=btn.dataset.char||'🖍️';
+      selectedChar=btn.dataset.char||'🤖';
       characters.forEach(x=>x.classList.toggle('selected',x===btn));
       runner.textContent=selectedChar;
       gateReady();
@@ -401,11 +439,11 @@
     function jump(){if(running&&jumpY<=1){jumpVelocity=JUMP_VELOCITY;jumpCount++}}
     function clearObstacles(){obstacles.forEach(o=>o.el.remove());obstacles=[]}
     function spawnObstacle(nowMs,speed){const types=['rock','crate','pencil'],type=types[Math.floor(Math.random()*types.length)],el=document.createElement('div');el.className='runner-obstacle '+type;arena.appendChild(el);const width=type==='pencil'?24:(type==='crate'?48:42),height=type==='pencil'?62:(type==='crate'?48:38),x=arena.clientWidth+30;obstacles.push({el,type,x,width,height,passed:false});const d=Math.min(1,(speed-BASE_SPEED)/(MAX_SPEED-BASE_SPEED)),minGap=680-d*180,variance=620-d*200;nextSpawnAt=nowMs+minGap+Math.random()*variance}
-    function collision(o){const runnerX=arena.clientWidth<=520?44:72,runnerW=arena.clientWidth<=520?62:72,ground=62,horizontal=(runnerX+runnerW-11)>o.x&&(runnerX+11)<(o.x+o.width),vertical=(ground+jumpY)<(ground+o.height-7);return horizontal&&vertical}
+    function collision(o){const mobile=arena.clientWidth<=520,runnerX=mobile?34:56,runnerW=mobile?82:92,ground=62,horizontal=(runnerX+runnerW-18)>o.x&&(runnerX+18)<(o.x+o.width),vertical=(ground+jumpY)<(ground+o.height-8);return horizontal&&vertical}
 
     async function finishRun(reason='hit'){if(!running)return;running=false;cancelAnimationFrame(raf);runner.classList.remove('running');arena.classList.remove('live');stopBtn.disabled=true;const durationMs=Math.max(0,Math.round(performance.now()-startPerf));msg.textContent='Verifying run...';try{const d=await api('/api/game/finish',{method:'POST',body:JSON.stringify({sessionId:gameSessionId,score,durationMs,jumps:jumpCount,obstaclesCleared:cleared,reason})});profile=d.user;$('#earnedPoints').textContent=d.runRP;$('#resultTitle').textContent=d.rank>0&&d.rank<=3?'TOP 3 TODAY 🏆':'RUSH COMPLETE!';$('#resultDetails').textContent='Distance '+score+' • Cleared '+cleared+' • Daily rank #'+(d.rank||'—')+' • This run '+d.runRP+' RP • '+(d.addedRP>0?('Daily best improved by '+d.addedRP+' RP'):('Daily best stays '+d.user.todayBestRP+' RP'));resultBox.classList.add('show');msg.textContent=d.addedRP>0?'Verified ✓ New daily RP best!':'Verified ✓ Your previous daily RP best still counts.';updateStats();await Promise.all([renderBoard(),refreshStatus()])}catch(err){msg.textContent='Run rejected: '+err.message}gateReady()}
 
-    function frame(now){if(!running)return;if(!lastFrame)lastFrame=now;const dt=Math.min(.035,(now-lastFrame)/1000);lastFrame=now;const elapsed=(now-startPerf)/1000,speed=currentSpeed(elapsed);distancePx+=speed*dt;score=Math.floor(distancePx/SCORE_DIVISOR);scoreText.textContent=score;speedText.textContent=(speed/BASE_SPEED).toFixed(1)+'x';clearedText.textContent=cleared;rpPreview.textContent=estimateRP(score);arena.style.setProperty('--ground-speed',Math.max(.28,.72-(speed-BASE_SPEED)/1100)+'s');if(jumpY>0||jumpVelocity>0){jumpY+=jumpVelocity*dt;jumpVelocity-=GRAVITY*dt;if(jumpY<=0){jumpY=0;jumpVelocity=0}}runner.style.transform='translateY('+(-jumpY)+'px)';if(now>=nextSpawnAt)spawnObstacle(now,speed);for(const o of [...obstacles]){o.x-=speed*dt;o.el.style.transform='translateX('+o.x+'px)';if(!o.passed&&o.x+o.width<(arena.clientWidth<=520?44:72)){o.passed=true;cleared++;clearedText.textContent=cleared}if(collision(o)){finishRun('hit');return}if(o.x+o.width<-30){o.el.remove();obstacles=obstacles.filter(x=>x!==o)}}raf=requestAnimationFrame(frame)}
+    function frame(now){if(!running)return;if(!lastFrame)lastFrame=now;const dt=Math.min(.035,(now-lastFrame)/1000);lastFrame=now;const elapsed=(now-startPerf)/1000,speed=currentSpeed(elapsed);distancePx+=speed*dt;score=Math.floor(distancePx/SCORE_DIVISOR);scoreText.textContent=score;speedText.textContent=(speed/BASE_SPEED).toFixed(1)+'x';clearedText.textContent=cleared;rpPreview.textContent=estimateRP(score);arena.style.setProperty('--ground-speed',Math.max(.28,.72-(speed-BASE_SPEED)/1100)+'s');if(jumpY>0||jumpVelocity>0){jumpY+=jumpVelocity*dt;jumpVelocity-=GRAVITY*dt;if(jumpY<=0){jumpY=0;jumpVelocity=0}}runner.style.transform='translateY('+(-jumpY)+'px)';if(now>=nextSpawnAt)spawnObstacle(now,speed);for(const o of [...obstacles]){o.x-=speed*dt;o.el.style.transform='translateX('+o.x+'px)';if(!o.passed&&o.x+o.width<(arena.clientWidth<=520?34:56)){o.passed=true;cleared++;clearedText.textContent=cleared}if(collision(o)){finishRun('hit');return}if(o.x+o.width<-30){o.el.remove();obstacles=obstacles.filter(x=>x!==o)}}raf=requestAnimationFrame(frame)}
     async function startGame(){if(running||!selectedChar||!twitterHandle)return;msg.textContent='Creating secure run...';try{const d=await api('/api/game/start',{method:'POST',body:JSON.stringify({character:selectedChar})});gameSessionId=d.sessionId;running=true;score=0;cleared=0;distancePx=0;jumpY=0;jumpVelocity=0;jumpCount=0;lastFrame=0;scoreText.textContent='0';clearedText.textContent='0';speedText.textContent='1.0x';rpPreview.textContent='0';resultBox.classList.remove('show');clearObstacles();runner.textContent=selectedChar||'🖍️';runner.style.transform='translateY(0)';runner.classList.add('running');arena.classList.add('live');startBtn.disabled=true;stopBtn.disabled=false;msg.textContent='RUN! Press SPACE, ↑, W, or JUMP.';arena.focus();startPerf=performance.now();nextSpawnAt=startPerf+1100;raf=requestAnimationFrame(frame)}catch(err){msg.textContent=err.message;gateReady()}}
 
     buyWlBtn.addEventListener('click',async()=>{if(profile.wlClaimed||(profile.rpBalance||0)<wlPrice)return;shopStatus.textContent='Claiming WL...';try{const d=await api('/api/wl/claim',{method:'POST',body:'{}'});profile=d.user;wlRemainingEl.textContent=d.wlRemaining;updateStats()}catch(err){shopStatus.textContent=err.message}});
