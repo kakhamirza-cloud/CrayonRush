@@ -22,10 +22,8 @@
     .cr-game-nav strong{font-size:18px;color:#1768c9}
     @media(max-width:520px){.cr-game-nav{padding:9px 10px}.cr-game-nav strong{font-size:15px}.cr-game-nav a{font-size:13px}}
 
-    #crayon-rush-app .runner-characters{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-    #crayon-rush-app .runner-choice{min-height:96px;padding:7px;display:grid;grid-template-rows:1fr auto;gap:5px;font-size:12px;overflow:hidden}
-    #crayon-rush-app .runner-choice img{width:100%;height:62px;object-fit:cover;border:2px solid rgba(39,32,25,.26);border-radius:9px;background:#fff8df}
-    #crayon-rush-app .runner-choice span{font-size:12px;font-weight:1000}
+    #crayon-rush-app .runner-characters{grid-template-columns:repeat(6,minmax(0,1fr));gap:9px}
+    #crayon-rush-app .runner-characters .character{min-height:62px;font-size:31px}
     #crayon-rush-app .runner-arena{height:330px;position:relative;overflow:hidden;border:4px solid light-dark(#2e2824,#f2e0c2);border-radius:20px;background:#fbf3d9;outline:none;touch-action:manipulation;user-select:none}
     #crayon-rush-app .runner-sky{position:absolute;inset:0 0 64px;background:linear-gradient(#cfeaff,#f7f0d8);overflow:hidden}
     #crayon-rush-app .cloud{position:absolute;font-size:42px;color:#fff;filter:drop-shadow(2px 2px 0 rgba(39,32,25,.12));opacity:.9}
@@ -51,7 +49,7 @@
     #crayon-rush-app .start-hint{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%) rotate(-1deg);z-index:12;background:rgba(255,250,239,.9);border:3px dashed #29231f;border-radius:14px;padding:10px 14px;font-weight:1000;text-align:center;pointer-events:none}
     #crayon-rush-app .runner-arena.live .start-hint{display:none}
     #crayon-rush-app .runner-arena.live .runner-ground:after{animation-duration:var(--ground-speed,.7s)}
-    @media(max-width:520px){#crayon-rush-app .runner-characters{grid-template-columns:repeat(2,1fr)}#crayon-rush-app .runner-arena{height:285px}#crayon-rush-app .runner-avatar{left:44px;width:62px;height:62px;bottom:58px}}
+    @media(max-width:520px){#crayon-rush-app .runner-characters{grid-template-columns:repeat(3,1fr)}#crayon-rush-app .runner-arena{height:285px}#crayon-rush-app .runner-avatar{left:44px;width:62px;height:62px;bottom:58px}}
   </style>
 </head>
 <body>
@@ -184,10 +182,12 @@
           <h3 style="margin-top:14px">2. Pick your runner</h3>
           <p>Choose one of the Crayon Rush characters.</p>
           <div class="characters runner-characters" id="characters">
-            <button class="character runner-choice" type="button" data-char="wolf" data-img="../assets/wolf-runner.png"><img src="../assets/wolf-runner.png" alt=""><span>Wolf</span></button>
-            <button class="character runner-choice" type="button" data-char="scarlet" data-img="../assets/scarlet-dash.png"><img src="../assets/scarlet-dash.png" alt=""><span>Scarlet</span></button>
-            <button class="character runner-choice" type="button" data-char="ghost" data-img="../assets/ghost-buddy.png"><img src="../assets/ghost-buddy.png" alt=""><span>Ghost</span></button>
-            <button class="character runner-choice" type="button" data-char="mole" data-img="../assets/mole-sprint.png"><img src="../assets/mole-sprint.png" alt=""><span>Mole</span></button>
+            <button class="character" type="button" data-char="🐉" aria-label="Choose dragon">🐉</button>
+            <button class="character" type="button" data-char="🤖" aria-label="Choose robot">🤖</button>
+            <button class="character" type="button" data-char="⭐" aria-label="Choose star">⭐</button>
+            <button class="character" type="button" data-char="👻" aria-label="Choose ghost">👻</button>
+            <button class="character" type="button" data-char="🍄" aria-label="Choose mushroom">🍄</button>
+            <button class="character" type="button" data-char="🐙" aria-label="Choose octopus">🐙</button>
           </div>
           <div class="status-line" id="entryStatus">Pick a runner + submit your X handle to unlock START RUSH.</div>
         </div>
@@ -200,7 +200,7 @@
         <div class="runner-arena" id="arena" tabindex="0" aria-label="Crayon Rush endless runner. Press Space, Up arrow, W, or Jump.">
           <div class="runner-sky"><span class="cloud cloud-a">☁</span><span class="cloud cloud-b">☁</span><span class="sun-doodle">☀</span></div>
           <div class="runner-distance-lines"></div>
-          <div class="runner-avatar" id="runner"><img id="runnerImg" src="../assets/wolf-runner.png" alt="Your Crayon Rush runner"></div>
+          <div class="runner-avatar" id="runner" aria-label="Your Crayon Rush runner">🖍️</div>
           <div class="runner-ground"></div>
           <div class="start-hint">RUN • JUMP • DON'T HIT THE OBSTACLES</div>
         </div>
@@ -346,13 +346,13 @@
   (()=>{
     const root=document.getElementById('crayon-rush-app');if(!root||root.dataset.ready)return;root.dataset.ready='1';
     const $=s=>root.querySelector(s);
-    const arena=$('#arena'),runner=$('#runner'),runnerImg=$('#runnerImg'),jumpBtn=$('#jumpBtn'),startBtn=$('#startBtn'),stopBtn=$('#stopBtn');
+    const arena=$('#arena'),runner=$('#runner'),jumpBtn=$('#jumpBtn'),startBtn=$('#startBtn'),stopBtn=$('#stopBtn');
     const scoreText=$('#scoreText'),speedText=$('#speedText'),clearedText=$('#clearedText'),rpPreview=$('#rpPreview'),msg=$('#gameMessage'),resultBox=$('#resultBox');
     const totalPtsEl=$('#pointsTotal'),racesEl=$('#racesTotal'),bestEl=$('#bestScore'),board=$('#leaderboard'),shareBestScoreBtn=$('#shareBestScoreBtn');
     const twitterForm=$('#twitterForm'),twitterInput=$('#twitterInput'),entryStatus=$('#entryStatus'),characters=[...root.querySelectorAll('.character')];
     const buyWlBtn=$('#buyWlBtn'),shopStatus=$('#shopStatus'),walletCard=$('#walletCard'),walletForm=$('#walletForm'),walletInput=$('#walletInput'),walletStatus=$('#walletStatus');
     const idHandle=$('#idHandle'),downloadCard=$('#downloadCard'),shareCardBtn=$('#shareCardBtn'),shareStatus=$('#shareStatus'),cardWrap=$('.card-wrap'),wlRemainingEl=$('#wlRemaining'),resetCountdown=$('#resetCountdown');
-    const wlPrice=1000,RUNNER_IMAGES={wolf:'../assets/wolf-runner.png',scarlet:'../assets/scarlet-dash.png',ghost:'../assets/ghost-buddy.png',mole:'../assets/mole-sprint.png'};
+    const wlPrice=1000,ALLOWED_CHARS=['🐉','🤖','⭐','👻','🍄','🐙'];
     const BASE_SPEED=300,ACCEL=8.5,MAX_SPEED=720,SCORE_DIVISOR=12,GRAVITY=2150,JUMP_VELOCITY=760;
     let selectedChar='',twitterHandle='',gameSessionId='',serverResetAt=0,profile={rpBalance:0,races:0,bestScore:0,todayBestRP:0,previousDaysRP:0,wlClaimed:false,wallet:null};
     let running=false,raf=0,lastFrame=0,startPerf=0,distancePx=0,score=0,cleared=0,jumpY=0,jumpVelocity=0,nextSpawnAt=0,obstacles=[],jumpCount=0;
@@ -361,14 +361,40 @@
     function cleanHandle(v){return '@'+String(v||'').trim().replace(/^@+/,'').replace(/[^A-Za-z0-9_]/g,'').slice(0,15)}
     function estimateRP(s){return s<25?0:Math.min(180,Math.floor(3*Math.sqrt(s)))}
     function currentSpeed(t){return Math.min(MAX_SPEED,BASE_SPEED+ACCEL*t)}
-    function gateReady(){const ready=Boolean(selectedChar&&twitterHandle);startBtn.disabled=!ready||running;entryStatus.textContent=ready?(selectedChar.toUpperCase()+' • '+twitterHandle+' locked in. Start your Rush!'):'Pick a runner + submit your X handle to unlock START RUSH.'}
+    function gateReady(){const ready=Boolean(selectedChar&&twitterHandle);startBtn.disabled=!ready||running;entryStatus.textContent=ready?(selectedChar+' '+twitterHandle+' is locked in. Start your Rush!'):'Pick a runner + submit your X handle to unlock START RUSH.'}
 
-    characters.forEach(btn=>btn.addEventListener('click',async()=>{selectedChar=btn.dataset.char||'wolf';characters.forEach(x=>x.classList.toggle('selected',x===btn));runnerImg.src=RUNNER_IMAGES[selectedChar];gateReady();if(twitterHandle){try{await api('/api/character',{method:'POST',body:JSON.stringify({character:selectedChar})})}catch(e){}}}));
+    characters.forEach(btn=>btn.addEventListener('click',async()=>{
+      selectedChar=btn.dataset.char||'🖍️';
+      characters.forEach(x=>x.classList.toggle('selected',x===btn));
+      runner.textContent=selectedChar;
+      gateReady();
+      if(twitterHandle){
+        try{await api('/api/character',{method:'POST',body:JSON.stringify({character:selectedChar})})}catch(e){}
+      }
+    }));
     twitterForm.addEventListener('submit',async e=>{e.preventDefault();const h=cleanHandle(twitterInput.value);if(h.length<3){entryStatus.textContent='Enter a valid X handle.';return}entryStatus.textContent='Locking X handle...';try{const d=await api('/api/register',{method:'POST',body:JSON.stringify({handle:h,character:selectedChar||null})});twitterHandle=d.handle;twitterInput.value=twitterHandle;twitterInput.disabled=true;idHandle.textContent=twitterHandle;await refreshAll();gateReady()}catch(err){entryStatus.textContent=err.message}});
 
     async function renderBoard(){try{const d=await api('/api/leaderboard');board.innerHTML='';(d.entries||[]).slice(0,7).forEach((e,i)=>{const row=document.createElement('div');row.className='leader'+(e.handle===twitterHandle?' you':'');row.innerHTML='<div class="rank">#'+(i+1)+'</div><div class="name">'+e.handle+(i<3?' 🏆':'')+'</div><div class="score">'+e.score+'</div>';board.appendChild(row)});if(!(d.entries||[]).length)board.innerHTML='<div class="muted">No runs yet today. Be first.</div>'}catch(e){board.innerHTML='<div class="muted">Leaderboard unavailable.</div>'}}
     function updateStats(){totalPtsEl.textContent=profile.rpBalance||0;racesEl.textContent=profile.races||0;bestEl.textContent=profile.bestScore||0;$('#todayBestText').textContent=(profile.todayBestRP||0)+' RP';$('#previousDaysText').textContent=(profile.previousDaysRP||0)+' RP banked';$('#mission1').style.width=Math.min(100,(profile.todayBestRP||0)/1.8)+'%';$('#mission2').style.width=(profile.previousDaysRP||0)>0?'100%':'0%';$('#mission3').style.width='100%';buyWlBtn.disabled=profile.wlClaimed||(profile.rpBalance||0)<wlPrice;shopStatus.textContent=profile.wlClaimed?'WL purchased ✓ This X username already claimed its 1 WL.':(profile.rpBalance||0)>=wlPrice?'You have enough RP. Claim your WL!':(wlPrice-(profile.rpBalance||0))+' RP to go.';if(profile.wlClaimed){walletCard.classList.remove('locked');walletStatus.textContent=profile.wallet?'Wallet submitted ✓':'Unlocked ✓ Submit your wallet.'}if(profile.wallet){cardWrap.classList.add('unlocked');idHandle.textContent=twitterHandle||'@rusher'}}
-    async function refreshProfile(){try{const d=await api('/api/profile');if(d.user){twitterHandle=d.user.handle;twitterInput.value=twitterHandle;twitterInput.disabled=true;selectedChar=d.user.character&&RUNNER_IMAGES[d.user.character]?d.user.character:selectedChar;profile=d.user;idHandle.textContent=twitterHandle;if(selectedChar){runnerImg.src=RUNNER_IMAGES[selectedChar];characters.forEach(x=>x.classList.toggle('selected',x.dataset.char===selectedChar))}}}catch(e){}updateStats();gateReady()}
+    async function refreshProfile(){
+      try{
+        const d=await api('/api/profile');
+        if(d.user){
+          twitterHandle=d.user.handle;
+          twitterInput.value=twitterHandle;
+          twitterInput.disabled=true;
+          selectedChar=ALLOWED_CHARS.includes(d.user.character)?d.user.character:selectedChar;
+          profile=d.user;
+          idHandle.textContent=twitterHandle;
+          if(selectedChar){
+            runner.textContent=selectedChar;
+            characters.forEach(x=>x.classList.toggle('selected',x.dataset.char===selectedChar));
+          }
+        }
+      }catch(e){}
+      updateStats();
+      gateReady();
+    }
     async function refreshStatus(){try{const d=await api('/api/status');wlRemainingEl.textContent=d.wlRemaining;serverResetAt=Date.parse(d.resetAt)}catch(e){}}
     async function refreshAll(){await Promise.all([refreshProfile(),renderBoard(),refreshStatus()])}
 
@@ -380,7 +406,7 @@
     async function finishRun(reason='hit'){if(!running)return;running=false;cancelAnimationFrame(raf);runner.classList.remove('running');arena.classList.remove('live');stopBtn.disabled=true;const durationMs=Math.max(0,Math.round(performance.now()-startPerf));msg.textContent='Verifying run...';try{const d=await api('/api/game/finish',{method:'POST',body:JSON.stringify({sessionId:gameSessionId,score,durationMs,jumps:jumpCount,obstaclesCleared:cleared,reason})});profile=d.user;$('#earnedPoints').textContent=d.runRP;$('#resultTitle').textContent=d.rank>0&&d.rank<=3?'TOP 3 TODAY 🏆':'RUSH COMPLETE!';$('#resultDetails').textContent='Distance '+score+' • Cleared '+cleared+' • Daily rank #'+(d.rank||'—')+' • This run '+d.runRP+' RP • '+(d.addedRP>0?('Daily best improved by '+d.addedRP+' RP'):('Daily best stays '+d.user.todayBestRP+' RP'));resultBox.classList.add('show');msg.textContent=d.addedRP>0?'Verified ✓ New daily RP best!':'Verified ✓ Your previous daily RP best still counts.';updateStats();await Promise.all([renderBoard(),refreshStatus()])}catch(err){msg.textContent='Run rejected: '+err.message}gateReady()}
 
     function frame(now){if(!running)return;if(!lastFrame)lastFrame=now;const dt=Math.min(.035,(now-lastFrame)/1000);lastFrame=now;const elapsed=(now-startPerf)/1000,speed=currentSpeed(elapsed);distancePx+=speed*dt;score=Math.floor(distancePx/SCORE_DIVISOR);scoreText.textContent=score;speedText.textContent=(speed/BASE_SPEED).toFixed(1)+'x';clearedText.textContent=cleared;rpPreview.textContent=estimateRP(score);arena.style.setProperty('--ground-speed',Math.max(.28,.72-(speed-BASE_SPEED)/1100)+'s');if(jumpY>0||jumpVelocity>0){jumpY+=jumpVelocity*dt;jumpVelocity-=GRAVITY*dt;if(jumpY<=0){jumpY=0;jumpVelocity=0}}runner.style.transform='translateY('+(-jumpY)+'px)';if(now>=nextSpawnAt)spawnObstacle(now,speed);for(const o of [...obstacles]){o.x-=speed*dt;o.el.style.transform='translateX('+o.x+'px)';if(!o.passed&&o.x+o.width<(arena.clientWidth<=520?44:72)){o.passed=true;cleared++;clearedText.textContent=cleared}if(collision(o)){finishRun('hit');return}if(o.x+o.width<-30){o.el.remove();obstacles=obstacles.filter(x=>x!==o)}}raf=requestAnimationFrame(frame)}
-    async function startGame(){if(running||!selectedChar||!twitterHandle)return;msg.textContent='Creating secure run...';try{const d=await api('/api/game/start',{method:'POST',body:JSON.stringify({character:selectedChar})});gameSessionId=d.sessionId;running=true;score=0;cleared=0;distancePx=0;jumpY=0;jumpVelocity=0;jumpCount=0;lastFrame=0;scoreText.textContent='0';clearedText.textContent='0';speedText.textContent='1.0x';rpPreview.textContent='0';resultBox.classList.remove('show');clearObstacles();runner.style.transform='translateY(0)';runner.classList.add('running');arena.classList.add('live');startBtn.disabled=true;stopBtn.disabled=false;msg.textContent='RUN! Press SPACE, ↑, W, or JUMP.';arena.focus();startPerf=performance.now();nextSpawnAt=startPerf+1100;raf=requestAnimationFrame(frame)}catch(err){msg.textContent=err.message;gateReady()}}
+    async function startGame(){if(running||!selectedChar||!twitterHandle)return;msg.textContent='Creating secure run...';try{const d=await api('/api/game/start',{method:'POST',body:JSON.stringify({character:selectedChar})});gameSessionId=d.sessionId;running=true;score=0;cleared=0;distancePx=0;jumpY=0;jumpVelocity=0;jumpCount=0;lastFrame=0;scoreText.textContent='0';clearedText.textContent='0';speedText.textContent='1.0x';rpPreview.textContent='0';resultBox.classList.remove('show');clearObstacles();runner.textContent=selectedChar||'🖍️';runner.style.transform='translateY(0)';runner.classList.add('running');arena.classList.add('live');startBtn.disabled=true;stopBtn.disabled=false;msg.textContent='RUN! Press SPACE, ↑, W, or JUMP.';arena.focus();startPerf=performance.now();nextSpawnAt=startPerf+1100;raf=requestAnimationFrame(frame)}catch(err){msg.textContent=err.message;gateReady()}}
 
     buyWlBtn.addEventListener('click',async()=>{if(profile.wlClaimed||(profile.rpBalance||0)<wlPrice)return;shopStatus.textContent='Claiming WL...';try{const d=await api('/api/wl/claim',{method:'POST',body:'{}'});profile=d.user;wlRemainingEl.textContent=d.wlRemaining;updateStats()}catch(err){shopStatus.textContent=err.message}});
     walletForm.addEventListener('submit',async e=>{e.preventDefault();const wallet=walletInput.value.trim();walletStatus.textContent='Submitting...';try{const d=await api('/api/wallet',{method:'POST',body:JSON.stringify({wallet})});profile=d.user;walletStatus.textContent='Wallet submitted ✓';idHandle.textContent=twitterHandle||'@rusher';cardWrap.classList.add('unlocked');updateStats()}catch(err){walletStatus.textContent=err.message}});
