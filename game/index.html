@@ -182,6 +182,374 @@
     @media(max-width:820px){#crayon-rush-app .shop-grid,#crayon-rush-app .card-wrap{grid-template-columns:1fr}}
     @media(max-width:480px){#crayon-rush-app .stats{grid-template-columns:1fr}.cr-app h1{font-size:49px}.cr-app .arena{height:340px}.cr-app .runner{font-size:38px}.cr-app .hero-main,.cr-app .game-card,.cr-app .side-card{padding:17px}.cr-app .characters{grid-template-columns:repeat(3,1fr)}.cr-app .twitter-form,.cr-app .wallet-form{grid-template-columns:1fr}.cr-app .id-card{padding:14px}}
     @media(prefers-reduced-motion:reduce){#crayon-rush-app *,#crayon-rush-app *:before,#crayon-rush-app *:after{animation:none!important;transition:none!important}}
+
+    /* ===== Mobile layout cleanup ===== */
+    @media(max-width:640px){
+      html,body{overflow-x:hidden}
+      .cr-game-nav{
+        padding:8px 9px !important;
+        gap:7px !important;
+        min-height:56px;
+      }
+      .cr-game-nav a{
+        min-width:0;
+        padding:8px 9px !important;
+        font-size:11px !important;
+        line-height:1.1;
+        white-space:nowrap;
+        box-shadow:none;
+      }
+      .cr-game-nav strong{
+        font-size:13px !important;
+        white-space:nowrap;
+      }
+
+      #crayon-rush-app{
+        padding:9px !important;
+        overflow:visible !important;
+      }
+      #crayon-rush-app .wrap{
+        width:100%;
+        max-width:100%;
+        margin:0;
+      }
+
+      #crayon-rush-app .paper{
+        border-width:2px;
+        border-radius:16px;
+        box-shadow:3px 4px 0 light-dark(#29231f,#000);
+      }
+
+      #crayon-rush-app .hero{
+        display:grid !important;
+        grid-template-columns:1fr !important;
+        gap:10px !important;
+        margin-bottom:12px !important;
+      }
+      #crayon-rush-app .hero-main{
+        min-height:0 !important;
+        padding:17px 15px !important;
+      }
+      #crayon-rush-app .hero-main .scribble{display:none}
+      #crayon-rush-app h1{
+        font-size:43px !important;
+        line-height:.9 !important;
+        margin:8px 0 12px !important;
+      }
+      #crayon-rush-app .lead{
+        font-size:15px !important;
+        line-height:1.45 !important;
+        margin-bottom:14px !important;
+      }
+      #crayon-rush-app .hero-main .actions button{
+        width:100%;
+      }
+
+      #crayon-rush-app .stats{
+        display:grid !important;
+        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+        gap:7px !important;
+        padding:10px !important;
+      }
+      #crayon-rush-app .stat{
+        min-width:0;
+        padding:10px 7px !important;
+        text-align:center;
+        border-width:2px;
+        border-radius:12px;
+      }
+      #crayon-rush-app .stat b{
+        font-size:21px !important;
+        margin-bottom:4px !important;
+        overflow-wrap:anywhere;
+      }
+      #crayon-rush-app .stat small{
+        font-size:10px !important;
+        line-height:1.2;
+      }
+
+      #crayon-rush-app .grid{
+        display:grid !important;
+        grid-template-columns:1fr !important;
+        gap:12px !important;
+      }
+      #crayon-rush-app .game-card,
+      #crayon-rush-app .side-card,
+      #crayon-rush-app .utility,
+      #crayon-rush-app .shop{
+        padding:14px !important;
+      }
+
+      #crayon-rush-app .section-head{
+        align-items:flex-start !important;
+        flex-direction:column !important;
+        gap:4px !important;
+        margin-bottom:11px !important;
+      }
+      #crayon-rush-app h2{
+        font-size:24px !important;
+        line-height:1.05;
+      }
+      #crayon-rush-app .muted{
+        font-size:11px !important;
+      }
+
+      #crayon-rush-app .gate{
+        padding:12px !important;
+        margin-bottom:11px !important;
+        border-width:2px;
+        border-radius:14px;
+      }
+      #crayon-rush-app .gate h3{
+        font-size:17px !important;
+      }
+      #crayon-rush-app .gate p{
+        font-size:12px !important;
+        line-height:1.4;
+        margin-bottom:9px !important;
+      }
+
+      #crayon-rush-app .twitter-form,
+      #crayon-rush-app .wallet-form{
+        grid-template-columns:1fr !important;
+        gap:7px !important;
+      }
+      #crayon-rush-app input{
+        width:100%;
+        min-height:46px;
+        font-size:16px;
+      }
+      #crayon-rush-app .twitter-form button,
+      #crayon-rush-app .wallet-form button{
+        width:100%;
+      }
+
+      #crayon-rush-app .runner-characters,
+      #crayon-rush-app .characters{
+        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+        gap:7px !important;
+      }
+      #crayon-rush-app .runner-characters .character,
+      #crayon-rush-app .character{
+        width:100%;
+        min-width:0;
+        min-height:58px !important;
+        padding:5px !important;
+        font-size:30px !important;
+        border-width:2px;
+        border-radius:12px;
+      }
+
+      #crayon-rush-app .game-top{
+        display:grid !important;
+        grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+        gap:7px !important;
+        margin-bottom:9px !important;
+      }
+      #crayon-rush-app .pill{
+        min-width:0;
+        padding:6px 7px !important;
+        font-size:11px !important;
+        text-align:center;
+        overflow-wrap:anywhere;
+      }
+
+      #crayon-rush-app .runner-arena{
+        width:100%;
+        height:270px !important;
+        border-width:3px;
+        border-radius:15px;
+      }
+      #crayon-rush-app .runner-avatar{
+        left:28px !important;
+        bottom:61px !important;
+        width:76px !important;
+        height:76px !important;
+        font-size:64px !important;
+      }
+      #crayon-rush-app .start-hint{
+        width:calc(100% - 28px);
+        max-width:310px;
+        padding:8px 9px !important;
+        font-size:11px !important;
+        border-width:2px;
+      }
+      #crayon-rush-app .runner-obstacle.rock{
+        width:36px;height:32px;border-width:3px;
+      }
+      #crayon-rush-app .runner-obstacle.crate{
+        width:42px;height:42px;border-width:3px;
+      }
+      #crayon-rush-app .runner-obstacle.pencil{
+        width:21px;height:54px;border-width:3px;
+      }
+
+      #crayon-rush-app .runner-controls{
+        margin-top:8px !important;
+      }
+      #crayon-rush-app .runner-controls button{
+        width:100%;
+        min-height:58px;
+        font-size:20px !important;
+      }
+      #crayon-rush-app .game-card > .actions{
+        display:grid !important;
+        grid-template-columns:1fr 1fr;
+        gap:8px !important;
+      }
+      #crayon-rush-app .game-card > .actions button{
+        width:100%;
+        min-width:0;
+        padding-left:8px;
+        padding-right:8px;
+        font-size:13px;
+      }
+      #crayon-rush-app .message{
+        font-size:12px;
+        line-height:1.35;
+        min-height:22px;
+        margin-top:9px !important;
+      }
+
+      #crayon-rush-app .modal{
+        padding:12px !important;
+        border-width:2px;
+        font-size:13px;
+        overflow-wrap:anywhere;
+      }
+      #crayon-rush-app .pts-pop{
+        font-size:25px !important;
+      }
+      #crayon-rush-app .modal .actions{
+        display:grid !important;
+        grid-template-columns:1fr !important;
+      }
+      #crayon-rush-app .modal .actions button{
+        width:100%;
+      }
+
+      #crayon-rush-app .side{
+        gap:12px !important;
+      }
+      #crayon-rush-app .leader{
+        grid-template-columns:30px minmax(0,1fr) auto;
+        gap:7px;
+        padding:9px 0;
+        font-size:13px;
+      }
+      #crayon-rush-app .rank{font-size:15px !important}
+      #crayon-rush-app .name{
+        min-width:0;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+
+      #crayon-rush-app .utility{
+        margin-top:12px !important;
+      }
+      #crayon-rush-app .utility-grid{
+        grid-template-columns:1fr !important;
+        gap:8px !important;
+        margin-top:10px !important;
+      }
+      #crayon-rush-app .utility-item{
+        padding:12px !important;
+      }
+
+      #crayon-rush-app .shop{
+        margin-top:12px !important;
+      }
+      #crayon-rush-app .shop-grid,
+      #crayon-rush-app .card-wrap{
+        grid-template-columns:1fr !important;
+        gap:10px !important;
+      }
+      #crayon-rush-app .shop-card{
+        padding:13px !important;
+        border-width:2px;
+      }
+      #crayon-rush-app .shop-card h3{
+        font-size:19px !important;
+      }
+      #crayon-rush-app .price{
+        font-size:27px !important;
+      }
+      #crayon-rush-app .shop-card button,
+      #crayon-rush-app .tweet-box button{
+        width:100%;
+      }
+
+      #crayon-rush-app .id-card{
+        width:100%;
+        max-width:100%;
+        padding:0 !important;
+        border-radius:17px;
+        box-shadow:3px 4px 0 #18233a;
+      }
+      #crayon-rush-app .pass-info{
+        left:27% !important;
+        right:27% !important;
+        top:45% !important;
+        padding:8px 8px 6px !important;
+        border-width:2px !important;
+        border-radius:9px !important;
+      }
+      #crayon-rush-app .id-handle{
+        font-size:14px !important;
+        padding-left:22px !important;
+        padding-bottom:4px !important;
+        border-bottom-width:2px !important;
+      }
+      #crayon-rush-app .pass-wl{
+        padding:4px 13px !important;
+        border-width:2px !important;
+        font-size:9px !important;
+      }
+      #crayon-rush-app .pass-stamp{
+        padding:4px 9px !important;
+        border-width:2px !important;
+        font-size:7px !important;
+      }
+      #crayon-rush-app .tweet-box{
+        padding:11px !important;
+        font-size:12px;
+      }
+
+      #crayon-rush-app button{
+        min-height:46px;
+        border-width:2px;
+        box-shadow:2px 3px 0 light-dark(#29231f,#000);
+      }
+      #crayon-rush-app button:hover{
+        transform:none;
+        box-shadow:2px 3px 0 light-dark(#29231f,#000);
+      }
+
+      #crayon-rush-app .footer-note{
+        font-size:10px;
+        line-height:1.4;
+        margin-top:12px;
+      }
+    }
+
+    @media(max-width:380px){
+      .cr-game-nav strong{display:none}
+      .cr-game-nav{justify-content:space-between}
+      #crayon-rush-app h1{font-size:38px !important}
+      #crayon-rush-app .stats{
+        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+      }
+      #crayon-rush-app .stat b{font-size:18px !important}
+      #crayon-rush-app .stat small{font-size:9px !important}
+      #crayon-rush-app .runner-arena{height:250px !important}
+      #crayon-rush-app .runner-avatar{
+        left:22px !important;
+        width:70px !important;
+        height:70px !important;
+        font-size:59px !important;
+      }
+    }
   </style>
 
   <div class="wrap">
@@ -439,11 +807,11 @@
     function jump(){if(running&&jumpY<=1){jumpVelocity=JUMP_VELOCITY;jumpCount++}}
     function clearObstacles(){obstacles.forEach(o=>o.el.remove());obstacles=[]}
     function spawnObstacle(nowMs,speed){const types=['rock','crate','pencil'],type=types[Math.floor(Math.random()*types.length)],el=document.createElement('div');el.className='runner-obstacle '+type;arena.appendChild(el);const width=type==='pencil'?24:(type==='crate'?48:42),height=type==='pencil'?62:(type==='crate'?48:38),x=arena.clientWidth+30;obstacles.push({el,type,x,width,height,passed:false});const d=Math.min(1,(speed-BASE_SPEED)/(MAX_SPEED-BASE_SPEED)),minGap=680-d*180,variance=620-d*200;nextSpawnAt=nowMs+minGap+Math.random()*variance}
-    function collision(o){const mobile=arena.clientWidth<=520,runnerX=mobile?34:56,runnerW=mobile?82:92,ground=62,horizontal=(runnerX+runnerW-18)>o.x&&(runnerX+18)<(o.x+o.width),vertical=(ground+jumpY)<(ground+o.height-8);return horizontal&&vertical}
+    function collision(o){const mobile=arena.clientWidth<=640,runnerX=mobile?28:56,runnerW=mobile?76:92,ground=62,horizontal=(runnerX+runnerW-16)>o.x&&(runnerX+16)<(o.x+o.width),vertical=(ground+jumpY)<(ground+o.height-8);return horizontal&&vertical}
 
     async function finishRun(reason='hit'){if(!running)return;running=false;cancelAnimationFrame(raf);runner.classList.remove('running');arena.classList.remove('live');stopBtn.disabled=true;const durationMs=Math.max(0,Math.round(performance.now()-startPerf));msg.textContent='Verifying run...';try{const d=await api('/api/game/finish',{method:'POST',body:JSON.stringify({sessionId:gameSessionId,score,durationMs,jumps:jumpCount,obstaclesCleared:cleared,reason})});profile=d.user;$('#earnedPoints').textContent=d.runRP;$('#resultTitle').textContent=d.rank>0&&d.rank<=3?'TOP 3 TODAY 🏆':'RUSH COMPLETE!';$('#resultDetails').textContent='Distance '+score+' • Cleared '+cleared+' • Daily rank #'+(d.rank||'—')+' • This run '+d.runRP+' RP • '+(d.addedRP>0?('Daily best improved by '+d.addedRP+' RP'):('Daily best stays '+d.user.todayBestRP+' RP'));resultBox.classList.add('show');msg.textContent=d.addedRP>0?'Verified ✓ New daily RP best!':'Verified ✓ Your previous daily RP best still counts.';updateStats();await Promise.all([renderBoard(),refreshStatus()])}catch(err){msg.textContent='Run rejected: '+err.message}gateReady()}
 
-    function frame(now){if(!running)return;if(!lastFrame)lastFrame=now;const dt=Math.min(.035,(now-lastFrame)/1000);lastFrame=now;const elapsed=(now-startPerf)/1000,speed=currentSpeed(elapsed);distancePx+=speed*dt;score=Math.floor(distancePx/SCORE_DIVISOR);scoreText.textContent=score;speedText.textContent=(speed/BASE_SPEED).toFixed(1)+'x';clearedText.textContent=cleared;rpPreview.textContent=estimateRP(score);arena.style.setProperty('--ground-speed',Math.max(.28,.72-(speed-BASE_SPEED)/1100)+'s');if(jumpY>0||jumpVelocity>0){jumpY+=jumpVelocity*dt;jumpVelocity-=GRAVITY*dt;if(jumpY<=0){jumpY=0;jumpVelocity=0}}runner.style.transform='translateY('+(-jumpY)+'px)';if(now>=nextSpawnAt)spawnObstacle(now,speed);for(const o of [...obstacles]){o.x-=speed*dt;o.el.style.transform='translateX('+o.x+'px)';if(!o.passed&&o.x+o.width<(arena.clientWidth<=520?34:56)){o.passed=true;cleared++;clearedText.textContent=cleared}if(collision(o)){finishRun('hit');return}if(o.x+o.width<-30){o.el.remove();obstacles=obstacles.filter(x=>x!==o)}}raf=requestAnimationFrame(frame)}
+    function frame(now){if(!running)return;if(!lastFrame)lastFrame=now;const dt=Math.min(.035,(now-lastFrame)/1000);lastFrame=now;const elapsed=(now-startPerf)/1000,speed=currentSpeed(elapsed);distancePx+=speed*dt;score=Math.floor(distancePx/SCORE_DIVISOR);scoreText.textContent=score;speedText.textContent=(speed/BASE_SPEED).toFixed(1)+'x';clearedText.textContent=cleared;rpPreview.textContent=estimateRP(score);arena.style.setProperty('--ground-speed',Math.max(.28,.72-(speed-BASE_SPEED)/1100)+'s');if(jumpY>0||jumpVelocity>0){jumpY+=jumpVelocity*dt;jumpVelocity-=GRAVITY*dt;if(jumpY<=0){jumpY=0;jumpVelocity=0}}runner.style.transform='translateY('+(-jumpY)+'px)';if(now>=nextSpawnAt)spawnObstacle(now,speed);for(const o of [...obstacles]){o.x-=speed*dt;o.el.style.transform='translateX('+o.x+'px)';if(!o.passed&&o.x+o.width<(arena.clientWidth<=640?28:56)){o.passed=true;cleared++;clearedText.textContent=cleared}if(collision(o)){finishRun('hit');return}if(o.x+o.width<-30){o.el.remove();obstacles=obstacles.filter(x=>x!==o)}}raf=requestAnimationFrame(frame)}
     async function startGame(){if(running||!selectedChar||!twitterHandle)return;msg.textContent='Creating secure run...';try{const d=await api('/api/game/start',{method:'POST',body:JSON.stringify({character:selectedChar})});gameSessionId=d.sessionId;running=true;score=0;cleared=0;distancePx=0;jumpY=0;jumpVelocity=0;jumpCount=0;lastFrame=0;scoreText.textContent='0';clearedText.textContent='0';speedText.textContent='1.0x';rpPreview.textContent='0';resultBox.classList.remove('show');clearObstacles();runner.textContent=selectedChar||'🖍️';runner.style.transform='translateY(0)';runner.classList.add('running');arena.classList.add('live');startBtn.disabled=true;stopBtn.disabled=false;msg.textContent='RUN! Press SPACE, ↑, W, or JUMP.';arena.focus();startPerf=performance.now();nextSpawnAt=startPerf+1100;raf=requestAnimationFrame(frame)}catch(err){msg.textContent=err.message;gateReady()}}
 
     buyWlBtn.addEventListener('click',async()=>{if(profile.wlClaimed||(profile.rpBalance||0)<wlPrice)return;shopStatus.textContent='Claiming WL...';try{const d=await api('/api/wl/claim',{method:'POST',body:'{}'});profile=d.user;wlRemainingEl.textContent=d.wlRemaining;updateStats()}catch(err){shopStatus.textContent=err.message}});
