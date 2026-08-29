@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crayon Core | Crayon Rush</title>
+<meta name="description" content="Claim a Test Crayon, play Rush and unlock Crayon Core achievements.">
+<meta name="theme-color" content="#f8efd8">
+<style>
+:root{--paper:#f8efd8;--paper2:#fff9ea;--ink:#29211b;--blue:#1768c9;--red:#e74b35;--yellow:#f0bc25;--green:#2c9b58;--purple:#7e55bd;--orange:#ef7d24;--max:1080px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:radial-gradient(circle at 20% 8%,rgba(255,255,255,.85),transparent 32%),repeating-linear-gradient(0deg,rgba(79,52,30,.025) 0 1px,transparent 1px 5px),var(--paper);font-family:"Comic Sans MS","Trebuchet MS",system-ui,sans-serif}button,input{font:inherit}button{cursor:pointer}.wrap{width:min(var(--max),calc(100% - 26px));margin:auto}a{color:inherit}
+nav{position:sticky;top:0;z-index:50;background:rgba(248,239,216,.95);backdrop-filter:blur(10px);border-bottom:3px solid var(--ink)}.nav{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{text-decoration:none;font-size:25px;font-weight:1000;color:var(--blue)}.navlinks{display:flex;gap:8px;align-items:center}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:9px 15px;border:3px solid var(--ink);border-radius:15px;background:var(--paper2);font-weight:1000;text-decoration:none;box-shadow:3px 4px 0 var(--ink)}.btn.primary{background:var(--purple);color:white}.btn.yellow{background:#ffd544}.btn.blue{background:var(--blue);color:white}.btn:disabled{opacity:.45;cursor:not-allowed}
+.hero{text-align:center;padding:52px 0 34px}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:1000;opacity:.6}.hero h1{font-size:clamp(48px,9vw,88px);line-height:.9;letter-spacing:-.065em;margin:9px 0 16px;color:var(--purple)}.lead{font-size:clamp(16px,2.2vw,21px);line-height:1.55;max-width:760px;margin:0 auto 18px}.badge{display:inline-flex;gap:7px;align-items:center;padding:7px 10px;border:2px dashed var(--ink);border-radius:999px;background:rgba(255,255,255,.5);font-size:12px;font-weight:900}
+.grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px;padding-bottom:42px}.paper{background:rgba(255,250,239,.9);border:3px solid var(--ink);border-radius:20px;padding:20px;box-shadow:5px 6px 0 var(--ink)}.paper h2{font-size:28px;margin:0 0 12px;letter-spacing:-.04em}.paper h3{margin:0 0 8px}.muted{font-size:12px;opacity:.62}.stack{display:grid;gap:12px}
+.walletbox{display:grid;gap:9px}.walletline{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px;border:2px dashed rgba(41,33,27,.4);border-radius:12px;background:#fffdf5;font-size:13px}.walletaddr{font-family:ui-monospace,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px}.statusdot{width:10px;height:10px;border-radius:50%;background:#aaa}.statusdot.live{background:#2c9b58}.network{font-size:12px;font-weight:900;color:var(--purple)}
+.crayon-card{position:relative;min-height:320px;display:grid;place-items:center;text-align:center;overflow:hidden;background:linear-gradient(#fffaf0,#f5e8bf);border:3px solid var(--ink);border-radius:20px}.crayon-card:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 42px,rgba(23,104,201,.08) 42px 44px);pointer-events:none}.crayon-figure{position:relative;z-index:2;font-size:108px;line-height:1;filter:drop-shadow(4px 5px 0 rgba(41,33,27,.16));transition:.2s}.crayon-name{position:relative;z-index:2;font-size:24px;font-weight:1000;margin-top:10px}.crayon-meta{position:relative;z-index:2;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}.chip{padding:5px 9px;border:2px solid var(--ink);border-radius:999px;background:#fff;font-size:11px;font-weight:900}.locked{filter:grayscale(1);opacity:.55}.spark{position:absolute;font-size:34px;z-index:3}.spark.a{left:14%;top:14%}.spark.b{right:14%;top:20%}.spark.c{left:20%;bottom:12%}.spark.d{right:20%;bottom:11%}
+.achievements{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ach{padding:10px;border:2px solid var(--ink);border-radius:13px;background:#fffaf0;font-size:12px}.ach strong{display:block;margin-bottom:3px}.ach.unlocked{background:#fff2a8}.ach.claimed{background:#dff1d9}
+.gamebox{padding:0;overflow:hidden}.gamehead{padding:16px 18px;border-bottom:3px solid var(--ink);display:flex;justify-content:space-between;gap:10px;align-items:center}.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:11px 14px}.hud div{border:2px solid var(--ink);border-radius:999px;text-align:center;padding:6px;font-size:11px;background:#fffaf0;font-weight:900}.arena{height:340px;position:relative;overflow:hidden;background:linear-gradient(#cfeaff,#f6f0d7);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);touch-action:manipulation;user-select:none;outline:none}.sun{position:absolute;right:26px;top:22px;font-size:37px}.cloud{position:absolute;color:#fff;font-size:43px;filter:drop-shadow(2px 2px 0 rgba(41,33,27,.1))}.cloud.one{left:24%;top:35px}.cloud.two{right:20%;top:88px;font-size:33px}.ground{position:absolute;left:0;right:0;bottom:0;height:70px;background:#e2c47e;border-top:5px solid #6f5636}.ground:after{content:"";position:absolute;left:-20%;right:-20%;top:14px;height:9px;background:repeating-linear-gradient(90deg,#795f40 0 30px,transparent 30px 50px);opacity:.24;animation:move .7s linear infinite}@keyframes move{to{transform:translateX(-50px)}}.runner{position:absolute;left:65px;bottom:62px;width:82px;height:82px;display:grid;place-items:center;font-size:68px;z-index:8;transform-origin:center bottom;filter:drop-shadow(3px 4px 0 rgba(41,33,27,.18))}.runner.running{animation:bob .17s steps(2,end) infinite alternate}@keyframes bob{from{rotate:-2deg}to{rotate:2deg}}.ob{position:absolute;bottom:66px;z-index:6}.ob.rock{width:43px;height:37px;border:4px solid var(--ink);border-radius:55% 45% 42% 50%;background:#93877b}.ob.crate{width:46px;height:46px;border:4px solid var(--ink);background:#d18a43}.ob.pencil{width:23px;height:61px;border:4px solid var(--ink);background:#f0bc25}.hint{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);z-index:10;padding:9px 12px;border:3px dashed var(--ink);border-radius:13px;background:rgba(255,250,239,.92);font-size:12px;font-weight:1000;text-align:center;max-width:80%}.arena.live .hint{display:none}.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px}.controls button{min-height:54px}.message{padding:0 14px 15px;font-size:13px;min-height:34px}.result{display:none;margin:0 14px 14px;padding:13px;border:3px solid var(--ink);border-radius:14px;background:#fff9c9}.result.show{display:block}.result b{font-size:19px}.resultscore{font-size:31px;font-weight:1000;color:var(--purple);margin:4px 0}.claimrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.flow{padding:48px 0;border-top:3px dashed rgba(41,33,27,.25)}.flow h2{font-size:38px;margin:0 0 20px}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.step{border:3px solid var(--ink);border-radius:16px;padding:16px;background:#fffaf0}.step b{display:grid;place-items:center;width:34px;height:34px;border:3px solid var(--ink);border-radius:50%;background:#ffd544;margin-bottom:8px}.step strong{display:block;margin-bottom:5px}.tiny{font-size:11px;opacity:.62;line-height:1.45}
+footer{padding:24px 0 36px;border-top:3px solid var(--ink);font-size:12px;opacity:.7}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.wrap{width:calc(100% - 18px)}.navlinks .x{display:none}.hero{padding-top:38px}.hero h1{font-size:50px}.paper{padding:14px}.achievements{grid-template-columns:1fr}.hud{grid-template-columns:repeat(3,1fr);padding:8px}.arena{height:280px}.runner{left:28px;width:76px;height:76px;font-size:62px}.controls{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.walletline{align-items:flex-start;flex-direction:column}.walletaddr{max-width:100%}}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav"><a class="brand" href="/">← CRAYON RUSH</a><div class="navlinks"><a class="btn x" href="https://x.com/CrayonRush" target="_blank" rel="noopener">𝕏</a><a class="btn" href="/game/">RUSH GAME</a></div></div></nav>
+
+<header class="hero"><div class="wrap"><div class="eyebrow">Interactive Crayon Core test</div><h1>CRAYON CORE 🖍️</h1><p class="lead">Claim a Test Crayon, run with it, unlock milestones and watch its profile evolve.</p><div class="badge">Robinhood Chain Testnet • Chain ID 46630</div></div></header>
+
+<main class="wrap grid">
+<section class="stack">
+  <article class="paper walletbox">
+    <h2>1. Connect</h2>
+    <p class="muted">Use an EVM wallet. If you don't have one installed, Guest Demo still lets you test the whole flow.</p>
+    <div class="walletline"><span><span id="walletDot" class="statusdot"></span> <b id="walletState">Not connected</b></span><span id="walletAddress" class="walletaddr">—</span></div>
+    <div class="walletline"><span>Network</span><span id="networkState" class="network">Not checked</span></div>
+    <div class="claimrow"><button id="connectBtn" class="btn primary" type="button">CONNECT WALLET</button><button id="guestBtn" class="btn" type="button">GUEST DEMO</button></div>
+  </article>
+
+  <article class="paper">
+    <h2>2. Your Test Crayon</h2>
+    <div id="crayonCard" class="crayon-card locked">
+      <div class="spark a">⭐</div><div class="spark b">🖍️</div><div class="spark c">⚡</div><div class="spark d">🏆</div>
+      <div>
+        <div id="crayonFigure" class="crayon-figure">🖍️</div>
+        <div id="crayonName" class="crayon-name">NO TEST CRAYON YET</div>
+        <div class="crayon-meta"><span class="chip">LV <span id="levelText">0</span></span><span class="chip">BEST <span id="bestText">0</span></span><span class="chip"><span id="claimedText">0</span> ACHIEVEMENTS</span></div>
+      </div>
+    </div>
+    <div class="claimrow" style="margin-top:12px"><button id="claimCrayonBtn" class="btn yellow" type="button" disabled>CLAIM TEST CRAYON</button><button id="resetBtn" class="btn" type="button">RESET DEMO</button></div>
+    <p id="crayonStatus" class="muted" style="margin-top:10px">Connect or enter Guest Demo first.</p>
+  </article>
+
+  <article class="paper">
+    <h2>Achievements</h2>
+    <div class="achievements">
+      <div class="ach" data-ach="first"><strong>🖍️ First Rush</strong>Finish one run.</div>
+      <div class="ach" data-ach="speedy"><strong>⚡ Speedy Crayon</strong>Score 250+.</div>
+      <div class="ach" data-ach="rusher"><strong>👟 Rusher</strong>Score 500+.</div>
+      <div class="ach" data-ach="super"><strong>🔥 Super Rusher</strong>Score 900+.</div>
+    </div>
+  </article>
+</section>
+
+<section class="paper gamebox">
+  <div class="gamehead"><div><div class="eyebrow">Playable demo</div><h2 style="margin:3px 0 0">3. Run with your Crayon</h2></div><div class="muted">SPACE / ↑ / TAP</div></div>
+  <div class="hud"><div>Distance <span id="scoreText">0</span></div><div>Speed <span id="speedText">1.0x</span></div><div>Cleared <span id="clearedText">0</span></div></div>
+  <div id="arena" class="arena" tabindex="0"><div class="sun">☀️</div><div class="cloud one">☁</div><div class="cloud two">☁</div><div class="runner" id="runner">🖍️</div><div class="ground"></div><div class="hint">CLAIM A TEST CRAYON, THEN RUN.<br>JUMP OVER THE OBSTACLES.</div></div>
+  <div class="controls"><button id="startBtn" class="btn blue" type="button" disabled>START RUN</button><button id="jumpBtn" class="btn yellow" type="button" disabled>↑ JUMP</button></div>
+  <div id="gameMsg" class="message">Your Test Crayon is waiting.</div>
+  <div id="resultBox" class="result"><b>RUN COMPLETE</b><div id="resultScore" class="resultscore">0</div><div id="unlockText"></div><div class="claimrow"><button id="claimAchievementBtn" class="btn primary" type="button" disabled>CLAIM NEW PROGRESS</button></div><div id="claimNote" class="tiny" style="margin-top:8px"></div></div>
+</section>
+</main>
+
+<section class="flow"><div class="wrap"><h2>What the real onchain version does</h2><div class="steps"><div class="step"><b>1</b><strong>Claim</strong><span class="tiny">Mint a free Test Crayon on Robinhood Chain testnet.</span></div><div class="step"><b>2</b><strong>Rush</strong><span class="tiny">Play offchain so gameplay stays fast.</span></div><div class="step"><b>3</b><strong>Verify</strong><span class="tiny">Crayon Rush verifies the score before an achievement can be written.</span></div><div class="step"><b>4</b><strong>Evolve</strong><span class="tiny">Achievements and best-score milestones become part of that Crayon's history.</span></div></div><p class="tiny" style="margin-top:14px">This page is fully playable now. Until the included contract is deployed, claims are stored in browser demo state and clearly labeled as demo claims. Deploy the included contract to turn the claim step into a real Robinhood Chain testnet transaction.</p></div></section>
+
+<footer><div class="wrap">Crayon Rush • Crayon Core • Play. Unlock. Evolve.</div></footer>
+
+<script>
+(()=>{
+  const CHAIN_ID_HEX='0xb626', CHAIN_ID_DEC=46630;
+  const RPC='https://rpc.testnet.chain.robinhood.com';
+  const EXPLORER='https://explorer.testnet.chain.robinhood.com';
+  const $=s=>document.querySelector(s);
+  const walletDot=$('#walletDot'),walletState=$('#walletState'),walletAddress=$('#walletAddress'),networkState=$('#networkState');
+  const connectBtn=$('#connectBtn'),guestBtn=$('#guestBtn'),claimCrayonBtn=$('#claimCrayonBtn'),resetBtn=$('#resetBtn');
+  const crayonCard=$('#crayonCard'),crayonFigure=$('#crayonFigure'),crayonName=$('#crayonName'),levelText=$('#levelText'),bestText=$('#bestText'),claimedText=$('#claimedText'),crayonStatus=$('#crayonStatus');
+  const arena=$('#arena'),runner=$('#runner'),startBtn=$('#startBtn'),jumpBtn=$('#jumpBtn'),scoreText=$('#scoreText'),speedText=$('#speedText'),clearedText=$('#clearedText'),gameMsg=$('#gameMsg'),resultBox=$('#resultBox'),resultScore=$('#resultScore'),unlockText=$('#unlockText'),claimAchievementBtn=$('#claimAchievementBtn'),claimNote=$('#claimNote');
+  let wallet='',guest=false,state=null,pending=[];
+  let running=false,raf=0,last=0,startAt=0,distance=0,score=0,jumpY=0,jumpV=0,nextSpawn=0,obs=[],cleared=0;
+  const BASE=290,ACCEL=8,MAX=620,GRAVITY=2400,JUMP=650;
+
+  function key(){return 'crayon-core:'+wallet.toLowerCase()}
+  function fresh(){return {claimed:false,tokenId:0,best:0,runs:0,achievements:{first:false,speedy:false,rusher:false,super:false}}}
+  function save(){if(wallet)localStorage.setItem(key(),JSON.stringify(state))}
+  function load(){if(!wallet)return fresh();try{return {...fresh(),...JSON.parse(localStorage.getItem(key())||'{}')}}catch(e){return fresh()}}
+  function short(a){return a? a.slice(0,6)+'…'+a.slice(-4):'—'}
+  function level(){if(!state||!state.claimed)return 0;let n=1;Object.values(state.achievements||{}).forEach(v=>{if(v)n++});return n}
+  function figure(){let f='🖍️';if(state?.achievements?.speedy)f='🖍️⚡';if(state?.achievements?.rusher)f='👟🖍️';if(state?.achievements?.super)f='🔥🖍️🔥';return f}
+  function render(){
+    const connected=!!wallet;walletDot.classList.toggle('live',connected);walletState.textContent=connected?(guest?'Guest Demo':'Wallet connected'):'Not connected';walletAddress.textContent=connected?short(wallet):'—';claimCrayonBtn.disabled=!connected||state?.claimed;
+    if(state?.claimed){crayonCard.classList.remove('locked');crayonFigure.textContent=figure();crayonName.textContent='TEST CRAYON #'+String(state.tokenId).padStart(3,'0');levelText.textContent=level();bestText.textContent=state.best||0;claimedText.textContent=Object.values(state.achievements||{}).filter(Boolean).length;crayonStatus.textContent=guest?'Guest Demo state is saved in this browser.':'Test Crayon demo state is linked to this wallet in this browser.';startBtn.disabled=false;jumpBtn.disabled=!running}
+    else{crayonCard.classList.add('locked');crayonFigure.textContent='🖍️';crayonName.textContent='NO TEST CRAYON YET';levelText.textContent='0';bestText.textContent='0';claimedText.textContent='0';crayonStatus.textContent=connected?'Claim your Test Crayon next.':'Connect or enter Guest Demo first.';startBtn.disabled=true;jumpBtn.disabled=true}
+    document.querySelectorAll('.ach').forEach(el=>{const id=el.dataset.ach;el.classList.toggle('claimed',!!state?.achievements?.[id]);el.classList.toggle('unlocked',pending.includes(id)&&!state?.achievements?.[id])});
+  }
+
+  async function ensureNetwork(){if(guest){networkState.textContent='Guest Demo';return true}if(!window.ethereum)return false;const cid=await ethereum.request({method:'eth_chainId'});if(cid.toLowerCase()===CHAIN_ID_HEX){networkState.textContent='Robinhood Testnet ✓';return true}try{await ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:CHAIN_ID_HEX}]})}catch(e){if(e.code===4902){await ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:CHAIN_ID_HEX,chainName:'Robinhood Chain Testnet',nativeCurrency:{name:'ETH',symbol:'ETH',decimals:18},rpcUrls:[RPC],blockExplorerUrls:[EXPLORER]}]})}else throw e}networkState.textContent='Robinhood Testnet ✓';return true}
+  connectBtn.addEventListener('click',async()=>{if(!window.ethereum){networkState.textContent='No browser wallet found';return}try{const a=await ethereum.request({method:'eth_requestAccounts'});wallet=a[0];guest=false;await ensureNetwork();state=load();render()}catch(e){networkState.textContent='Connection cancelled'}});
+  guestBtn.addEventListener('click',()=>{guest=true;wallet='0xDEMO'+Math.random().toString(16).slice(2,14).padEnd(36,'0');networkState.textContent='Guest Demo';state=load();render()});
+  claimCrayonBtn.addEventListener('click',()=>{if(!wallet||state.claimed)return;state.claimed=true;state.tokenId=Math.floor(1+Math.random()*999);save();render();gameMsg.textContent='Test Crayon claimed. Start your Rush!'});
+  resetBtn.addEventListener('click',()=>{if(wallet)localStorage.removeItem(key());state=fresh();pending=[];render();resultBox.classList.remove('show');gameMsg.textContent='Demo reset.'});
+
+  function speed(t){return Math.min(MAX,BASE+ACCEL*t)}
+  function clearObs(){obs.forEach(o=>o.el.remove());obs=[]}
+  function spawn(now,sp){const types=['rock','crate','pencil'],type=types[Math.floor(Math.random()*types.length)],el=document.createElement('div');el.className='ob '+type;arena.appendChild(el);const w=type==='pencil'?23:type==='crate'?46:43,h=type==='pencil'?61:type==='crate'?46:37;obs.push({el,x:arena.clientWidth+20,w,h,passed:false});const d=(sp-BASE)/(MAX-BASE);nextSpawn=now+(720-d*180)+Math.random()*(500-d*160)}
+  function jump(){if(running&&jumpY<=1){jumpV=JUMP}}
+  function collide(o){const mobile=arena.clientWidth<560,rx=mobile?28:65,rw=mobile?76:82,ground=66;return (rx+rw-16)>o.x&&(rx+16)<(o.x+o.w)&&(ground+jumpY)<(ground+o.h-7)}
+  function frame(now){if(!running)return;if(!last)last=now;const dt=Math.min(.035,(now-last)/1000);last=now;const t=(now-startAt)/1000,sp=speed(t);distance+=sp*dt;score=Math.floor(distance/12);scoreText.textContent=score;speedText.textContent=(sp/BASE).toFixed(1)+'x';clearedText.textContent=cleared;if(jumpY>0||jumpV>0){jumpY+=jumpV*dt;jumpV-=GRAVITY*dt;if(jumpY<=0){jumpY=0;jumpV=0}}runner.style.transform='translateY('+(-jumpY)+'px)';if(now>=nextSpawn)spawn(now,sp);for(const o of [...obs]){o.x-=sp*dt;o.el.style.transform='translateX('+o.x+'px)';const rx=arena.clientWidth<560?28:65;if(!o.passed&&o.x+o.w<rx){o.passed=true;cleared++;clearedText.textContent=cleared}if(collide(o)){finish();return}if(o.x+o.w<-30){o.el.remove();obs=obs.filter(x=>x!==o)}}raf=requestAnimationFrame(frame)}
+  function start(){if(!state?.claimed||running)return;running=true;last=0;distance=0;score=0;cleared=0;jumpY=0;jumpV=0;clearObs();scoreText.textContent='0';speedText.textContent='1.0x';clearedText.textContent='0';resultBox.classList.remove('show');arena.classList.add('live');runner.classList.add('running');runner.textContent=figure();startBtn.disabled=true;jumpBtn.disabled=false;gameMsg.textContent='RUN! Jump over the obstacles.';startAt=performance.now();nextSpawn=startAt+1150;raf=requestAnimationFrame(frame);arena.focus()}
+  function unlockedFor(s){const x=['first'];if(s>=250)x.push('speedy');if(s>=500)x.push('rusher');if(s>=900)x.push('super');return x.filter(id=>!state.achievements[id])}
+  function finish(){if(!running)return;running=false;cancelAnimationFrame(raf);arena.classList.remove('live');runner.classList.remove('running');startBtn.disabled=false;jumpBtn.disabled=true;state.runs=(state.runs||0)+1;state.best=Math.max(state.best||0,score);pending=unlockedFor(score);save();resultScore.textContent='Distance '+score;unlockText.textContent=pending.length?'New unlocks: '+pending.map(id=>({first:'First Rush',speedy:'Speedy Crayon',rusher:'Rusher',super:'Super Rusher'}[id])).join(', '):'No new achievement this run. Beat your best and keep rushing.';claimAchievementBtn.disabled=!pending.length;claimNote.textContent=pending.length?(guest?'Guest Demo claim will save these achievements in this browser.':'Demo claim will save these achievements to your Test Crayon profile. Deploy the included contract to make this a real onchain claim.'):' ';resultBox.classList.add('show');render();gameMsg.textContent='Run complete.'}
+  claimAchievementBtn.addEventListener('click',()=>{if(!pending.length)return;pending.forEach(id=>state.achievements[id]=true);pending=[];save();claimAchievementBtn.disabled=true;claimNote.textContent=guest?'Achievements claimed in Guest Demo ✓':'Achievements claimed to Test Crayon demo profile ✓';render()});
+  startBtn.addEventListener('click',start);jumpBtn.addEventListener('click',jump);arena.addEventListener('pointerdown',e=>{if(running){e.preventDefault();jump()}});document.addEventListener('keydown',e=>{if(running&&!e.repeat&&['Space','ArrowUp','KeyW'].includes(e.code)){e.preventDefault();jump()}});
+  state=fresh();render();
+})();
+</script>
+</body>
+</html>
