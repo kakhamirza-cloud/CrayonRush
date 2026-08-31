@@ -293,6 +293,68 @@ claimBtn.onclick=async()=>{
   }catch(e){console.error(e);claimMsg.textContent=e.shortMessage||e.message||"Claim failed.";claimBtn.textContent="CLAIM PROGRESS ONCHAIN";claimBtn.disabled=false}
 };
 jumpBtn.onclick=jump;arena.addEventListener("pointerdown",()=>{if(running)jump()});document.addEventListener("keydown",e=>{if(running&&!e.repeat&&["Space","ArrowUp","KeyW"].includes(e.code)){e.preventDefault();jump()}});
+
+// Keep the page synced when the user switches accounts or networks inside MetaMask.
+if (window.ethereum && window.ethereum.on) {
+  window.ethereum.on("accountsChanged", async (accounts) => {
+    // Wallet fully disconnected from the site.
+    if (!accounts || accounts.length === 0) {
+      disconnectBtn.click();
+      return;
+    }
+
+    try {
+      // Reset any state belonging to the previous account.
+      if (running) {
+        cancelAnimationFrame(raf);
+        running = false;
+        arena.classList.remove("live");
+        runner.classList.remove("running");
+        clearObs();
+      }
+
+      pendingClaim = null;
+      sessionId = null;
+      resultBox.classList.remove("show");
+      gameMsg.textContent = "Switching wallet account...";
+
+      provider = new BrowserProvider(window.ethereum);
+      signer = await provider.getSigner();
+      wallet = await signer.getAddress();
+
+      state = {
+        tokenId: 0,
+        bestScore: 0,
+        achievementBits: 0,
+        testCrayonAddress: null,
+        crayonCoreAddress: null
+      };
+
+      await ensureNetwork();
+      await refresh();
+      gameMsg.textContent = state.tokenId
+        ? "Wallet switched. Your Test Crayon is loaded."
+        : "Wallet switched. Claim a Test Crayon to start.";
+    } catch (e) {
+      console.error(e);
+      disconnectBtn.click();
+    }
+  });
+
+  window.ethereum.on("chainChanged", async () => {
+    if (!wallet) return;
+    try {
+      provider = new BrowserProvider(window.ethereum);
+      signer = await provider.getSigner();
+      wallet = await signer.getAddress();
+      await ensureNetwork();
+      await refresh();
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}
+
 render();
 </script>
 </body>
