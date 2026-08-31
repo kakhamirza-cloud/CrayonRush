@@ -17,11 +17,24 @@ a{color:inherit}.nav{min-height:64px;display:flex;align-items:center;justify-con
 .game{padding:0;overflow:hidden}.gamehead{padding:15px 17px;border-bottom:3px solid var(--ink)}.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:10px 12px}.hud div{text-align:center;border:2px solid var(--ink);border-radius:999px;padding:6px;background:#fff;font-size:11px;font-weight:900}
 .arena{height:330px;position:relative;overflow:hidden;background:linear-gradient(#d7efff,#fff6d7);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);touch-action:manipulation}.ground{position:absolute;left:0;right:0;bottom:0;height:68px;background:#e2c47e;border-top:5px solid #6f5636}.runner{position:absolute;left:58px;bottom:62px;width:64px;height:95px;z-index:4;transform-origin:center bottom}.runner .body{position:absolute;left:18px;top:12px;width:34px;height:70px;background:#7e55bd;border:4px solid var(--ink);border-radius:15px}.runner .tip{position:absolute;left:19px;top:0;width:32px;height:30px;background:#7e55bd;border:4px solid var(--ink);clip-path:polygon(50% 0,100% 100%,0 100%)}.runner .wrapr{position:absolute;left:12px;top:47px;width:47px;height:27px;background:#ffd544;border:4px solid var(--ink);border-radius:5px}.runner .eye{position:absolute;top:34px;width:6px;height:6px;background:var(--ink);border-radius:50%;z-index:3}.runner .e1{left:27px}.runner .e2{left:40px}.runner .leg{position:absolute;top:78px;width:9px;height:18px;background:#7e55bd;border:3px solid var(--ink);border-radius:8px}.runner .l1{left:20px}.runner .l2{left:42px}.runner.running .l1{animation:kick1 .16s infinite alternate}.runner.running .l2{animation:kick2 .16s infinite alternate}@keyframes kick1{to{transform:rotate(30deg)}}@keyframes kick2{to{transform:rotate(-30deg)}}.ob{position:absolute;bottom:64px;border:4px solid var(--ink);background:#8f8377;border-radius:45%;width:42px;height:38px}.hint{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:#fffaf0;border:3px dashed var(--ink);padding:9px 11px;border-radius:12px;font-size:12px;font-weight:1000;text-align:center}.arena.live .hint{display:none}.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px}.msg{padding:0 12px 13px;font-size:12px}.result{margin:0 12px 13px;padding:12px;border:3px solid var(--ink);border-radius:13px;background:#fff4b9;display:none}.result.show{display:block}.scorebig{font-size:30px;color:var(--purple);font-weight:1000}
 .notice{border:2px solid var(--ink);border-radius:12px;padding:10px;background:#fff3c5;font-size:12px;line-height:1.45}.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+
+.tutorial-modal{position:fixed;inset:0;background:rgba(25,20,16,.72);z-index:100;display:none;align-items:center;justify-content:center;padding:18px}
+.tutorial-modal.show{display:flex}
+.tutorial-card{width:min(560px,100%);max-height:88vh;overflow:auto;background:var(--paper2);border:4px solid var(--ink);border-radius:22px;box-shadow:8px 10px 0 var(--ink);padding:20px}
+.tutorial-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.tutorial-head h2{margin:0;font-size:30px}
+.tutorial-close{border:3px solid var(--ink);background:#fff;border-radius:12px;width:42px;height:42px;font-size:22px;font-weight:1000;cursor:pointer}
+.tutorial-steps{display:grid;gap:10px}
+.tutorial-step{display:grid;grid-template-columns:42px 1fr;gap:10px;align-items:start;border:2px solid var(--ink);border-radius:14px;background:#fffdf5;padding:11px}
+.tutorial-num{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:50%;background:var(--yellow);font-weight:1000}
+.tutorial-step b{display:block;margin-bottom:3px}
+.tutorial-step span{font-size:13px;line-height:1.45}
+
 @media(max-width:820px){.grid{grid-template-columns:1fr}}@media(max-width:560px){.wrap{width:calc(100% - 16px)}.nav .btn{padding:8px 10px}.hero{padding-top:30px}.paper{padding:14px}.ach{grid-template-columns:1fr}.arena{height:270px}.runner{left:26px}.controls{grid-template-columns:1fr}.line{flex-direction:column}.mono{max-width:100%}}
 </style>
 </head>
 <body>
-<div class="top"><div class="wrap nav"><a class="brand" href="/">← CRAYON RUSH</a><a class="btn" href="/game/">RUSH GAME</a></div></div>
+<div class="top"><div class="wrap nav"><a class="brand" href="/">← CRAYON RUSH</a><div class="row"><button id="tutorialBtn" class="btn yellow">HOW TO TEST</button><a class="btn" href="/game/">RUSH GAME</a></div></div></div>
 
 <header class="hero wrap">
   <div class="badge">PUBLIC TEST • ROBINHOOD CHAIN TESTNET • CHAIN ID 46630</div>
@@ -105,6 +118,29 @@ a{color:inherit}.nav{min-height:64px;display:flex;align-items:center;justify-con
   <div class="notice"><b>What this test proves:</b> the artwork stays the same. Your verified Rush achievements are written to Crayon Core on Robinhood Chain testnet, and the Test Crayon metadata endpoint reads those onchain traits. Reload or use another browser with the same wallet and the traits are still there.</div>
 </section>
 
+
+<div id="tutorialModal" class="tutorial-modal" aria-hidden="true">
+  <div class="tutorial-card" role="dialog" aria-modal="true" aria-labelledby="tutorialTitle">
+    <div class="tutorial-head">
+      <h2 id="tutorialTitle">How to Test Crayon Core 🖍️</h2>
+      <button id="tutorialClose" class="tutorial-close" aria-label="Close tutorial">×</button>
+    </div>
+
+    <div class="tutorial-steps">
+      <div class="tutorial-step"><div class="tutorial-num">1</div><div><b>Connect Wallet</b><span>Connect an EVM wallet and switch to Robinhood Chain Testnet when asked.</span></div></div>
+      <div class="tutorial-step"><div class="tutorial-num">2</div><div><b>Get Test ETH</b><span>Use the in-page faucet if your wallet needs testnet gas. You can also use Robinhood's official faucet.</span></div></div>
+      <div class="tutorial-step"><div class="tutorial-num">3</div><div><b>Claim a Free Test Crayon</b><span>Mint one Test Crayon to your wallet on Robinhood Chain Testnet.</span></div></div>
+      <div class="tutorial-step"><div class="tutorial-num">4</div><div><b>Play Rush</b><span>Start the run and jump over obstacles. Higher distance unlocks more earned traits.</span></div></div>
+      <div class="tutorial-step"><div class="tutorial-num">5</div><div><b>Claim Progress Onchain</b><span>After a verified run, confirm the transaction in your wallet to save your best score and earned traits.</span></div></div>
+      <div class="tutorial-step"><div class="tutorial-num">6</div><div><b>Verify It</b><span>Open View Metadata after your claim. Your artwork stays the same, while the earned traits are read from Crayon Core.</span></div></div>
+    </div>
+
+    <div class="notice" style="margin-top:14px">
+      <b>Testnet only:</b> Test Crayons and test ETH have no real value. This demo is for testing Crayon Core.
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { BrowserProvider, Contract } from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
 
@@ -124,6 +160,7 @@ const CORE_ABI=[
 
 const $=s=>document.querySelector(s);
 const walletText=$("#walletText"),networkText=$("#networkText"),balanceText=$("#balanceText");
+const tutorialBtn=$("#tutorialBtn"),tutorialModal=$("#tutorialModal"),tutorialClose=$("#tutorialClose");
 const connectBtn=$("#connectBtn"),disconnectBtn=$("#disconnectBtn"),faucetBtn=$("#faucetBtn"),mintBtn=$("#mintBtn"),metadataBtn=$("#metadataBtn"),mintMsg=$("#mintMsg");
 const tokenName=$("#tokenName"),bestText=$("#bestText"),traitCount=$("#traitCount");
 const arena=$("#arena"),runner=$("#runner"),startBtn=$("#startBtn"),jumpBtn=$("#jumpBtn"),scoreText=$("#scoreText"),speedText=$("#speedText"),clearedText=$("#clearedText"),gameMsg=$("#gameMsg");
@@ -383,6 +420,28 @@ if(window.ethereum&&window.ethereum.on){
     }
   });
 }
+
+
+tutorialBtn.onclick=()=>{
+  tutorialModal.classList.add("show");
+  tutorialModal.setAttribute("aria-hidden","false");
+};
+tutorialClose.onclick=()=>{
+  tutorialModal.classList.remove("show");
+  tutorialModal.setAttribute("aria-hidden","true");
+};
+tutorialModal.addEventListener("pointerdown",e=>{
+  if(e.target===tutorialModal){
+    tutorialModal.classList.remove("show");
+    tutorialModal.setAttribute("aria-hidden","true");
+  }
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&tutorialModal.classList.contains("show")){
+    tutorialModal.classList.remove("show");
+    tutorialModal.setAttribute("aria-hidden","true");
+  }
+});
 
 render();
 </script>
