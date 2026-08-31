@@ -40,6 +40,7 @@ a{color:inherit}.nav{min-height:64px;display:flex;align-items:center;justify-con
     </div>
     <div class="row" style="margin-top:10px">
       <button id="connectBtn" class="btn purple">CONNECT WALLET</button>
+      <button id="disconnectBtn" class="btn" style="display:none">DISCONNECT</button>
       <button id="faucetBtn" class="btn yellow" disabled>GET TEST ETH</button>
     </div>
     <div class="links">
@@ -123,7 +124,7 @@ const CORE_ABI=[
 
 const $=s=>document.querySelector(s);
 const walletText=$("#walletText"),networkText=$("#networkText"),balanceText=$("#balanceText");
-const connectBtn=$("#connectBtn"),faucetBtn=$("#faucetBtn"),mintBtn=$("#mintBtn"),metadataBtn=$("#metadataBtn"),mintMsg=$("#mintMsg");
+const connectBtn=$("#connectBtn"),disconnectBtn=$("#disconnectBtn"),faucetBtn=$("#faucetBtn"),mintBtn=$("#mintBtn"),metadataBtn=$("#metadataBtn"),mintMsg=$("#mintMsg");
 const tokenName=$("#tokenName"),bestText=$("#bestText"),traitCount=$("#traitCount");
 const arena=$("#arena"),runner=$("#runner"),startBtn=$("#startBtn"),jumpBtn=$("#jumpBtn"),scoreText=$("#scoreText"),speedText=$("#speedText"),clearedText=$("#clearedText"),gameMsg=$("#gameMsg");
 const resultBox=$("#resultBox"),resultScore=$("#resultScore"),unlockMsg=$("#unlockMsg"),claimBtn=$("#claimBtn"),claimMsg=$("#claimMsg");
@@ -139,7 +140,7 @@ function render(){
   tokenName.textContent=state.tokenId?`TEST CRAYON #${state.tokenId}`:"NO TEST CRAYON YET";
   bestText.textContent=state.bestScore||0;traitCount.textContent=bitCount(state.achievementBits||0);
   document.querySelectorAll(".trait").forEach(el=>el.classList.toggle("on",!!((state.achievementBits||0)&Number(el.dataset.bit))));
-  faucetBtn.disabled=!wallet;mintBtn.disabled=!wallet||!!state.tokenId;startBtn.disabled=!state.tokenId||running;
+  faucetBtn.disabled=!wallet;mintBtn.disabled=!wallet||!!state.tokenId;startBtn.disabled=!state.tokenId||running;connectBtn.style.display=wallet?"none":"inline-flex";disconnectBtn.style.display=wallet?"inline-flex":"none";
   if(state.tokenId){metadataBtn.style.display="inline-flex";metadataBtn.href=`/api/core/metadata/${state.tokenId}`;mintMsg.textContent="This is a real testnet NFT. Earned traits are read from Crayon Core."}
   else{metadataBtn.style.display="none";mintMsg.textContent=wallet?"Get test ETH if needed, then claim your free Test Crayon.":"Connect first."}
 }
@@ -169,6 +170,40 @@ connectBtn.onclick=async()=>{
     signer=await provider.getSigner();wallet=await signer.getAddress();
     await ensureNetwork();await refresh();
   }catch(e){console.error(e);networkText.textContent="Connection cancelled";}
+};
+disconnectBtn.onclick=()=>{
+  if(running){
+    cancelAnimationFrame(raf);
+    running=false;
+    arena.classList.remove("live");
+    runner.classList.remove("running");
+    clearObs();
+  }
+
+  provider=null;
+  signer=null;
+  wallet=null;
+  pendingClaim=null;
+  sessionId=null;
+
+  state={
+    tokenId:0,
+    bestScore:0,
+    achievementBits:0,
+    testCrayonAddress:null,
+    crayonCoreAddress:null
+  };
+
+  walletText.textContent="Not connected";
+  networkText.textContent="Not checked";
+  balanceText.textContent="0";
+  resultBox.classList.remove("show");
+  gameMsg.textContent="Waiting for your Test Crayon.";
+  claimBtn.disabled=true;
+  claimBtn.textContent="CLAIM PROGRESS ONCHAIN";
+  mintMsg.textContent="Connect first.";
+
+  render();
 };
 faucetBtn.onclick=async()=>{
   faucetBtn.disabled=true;faucetBtn.textContent="SENDING...";
