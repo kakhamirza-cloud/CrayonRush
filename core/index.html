@@ -3,167 +3,262 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Crayon Core | Crayon Rush</title>
-<meta name="description" content="Claim a Test Crayon, play Rush and unlock Crayon Core achievements.">
-<meta name="theme-color" content="#f8efd8">
+<title>Crayon Core Public Test | Crayon Rush</title>
+<meta name="description" content="Claim a free Test Crayon on Robinhood Chain testnet, play Rush and claim earned NFT metadata traits.">
 <style>
-:root{--paper:#f8efd8;--paper2:#fff9ea;--ink:#29211b;--blue:#1768c9;--red:#e74b35;--yellow:#f0bc25;--green:#2c9b58;--purple:#7e55bd;--orange:#ef7d24;--max:1080px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:radial-gradient(circle at 20% 8%,rgba(255,255,255,.85),transparent 32%),repeating-linear-gradient(0deg,rgba(79,52,30,.025) 0 1px,transparent 1px 5px),var(--paper);font-family:"Comic Sans MS","Trebuchet MS",system-ui,sans-serif}button,input{font:inherit}button{cursor:pointer}.wrap{width:min(var(--max),calc(100% - 26px));margin:auto}a{color:inherit}
-nav{position:sticky;top:0;z-index:50;background:rgba(248,239,216,.95);backdrop-filter:blur(10px);border-bottom:3px solid var(--ink)}.nav{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{text-decoration:none;font-size:25px;font-weight:1000;color:var(--blue)}.navlinks{display:flex;gap:8px;align-items:center}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:9px 15px;border:3px solid var(--ink);border-radius:15px;background:var(--paper2);font-weight:1000;text-decoration:none;box-shadow:3px 4px 0 var(--ink)}.btn.primary{background:var(--purple);color:white}.btn.yellow{background:#ffd544}.btn.blue{background:var(--blue);color:white}.btn:disabled{opacity:.45;cursor:not-allowed}
-.hero{text-align:center;padding:52px 0 34px}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:1000;opacity:.6}.hero h1{font-size:clamp(48px,9vw,88px);line-height:.9;letter-spacing:-.065em;margin:9px 0 16px;color:var(--purple)}.lead{font-size:clamp(16px,2.2vw,21px);line-height:1.55;max-width:760px;margin:0 auto 18px}.badge{display:inline-flex;gap:7px;align-items:center;padding:7px 10px;border:2px dashed var(--ink);border-radius:999px;background:rgba(255,255,255,.5);font-size:12px;font-weight:900}
-.grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px;padding-bottom:42px}.paper{background:rgba(255,250,239,.9);border:3px solid var(--ink);border-radius:20px;padding:20px;box-shadow:5px 6px 0 var(--ink)}.paper h2{font-size:28px;margin:0 0 12px;letter-spacing:-.04em}.paper h3{margin:0 0 8px}.muted{font-size:12px;opacity:.62}.stack{display:grid;gap:12px}
-.walletbox{display:grid;gap:9px}.walletline{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px;border:2px dashed rgba(41,33,27,.4);border-radius:12px;background:#fffdf5;font-size:13px}.walletaddr{font-family:ui-monospace,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px}.statusdot{width:10px;height:10px;border-radius:50%;background:#aaa}.statusdot.live{background:#2c9b58}.network{font-size:12px;font-weight:900;color:var(--purple)}
-
-/* ===== Crayon Rush coded mascot ===== */
-.cr-mascot{
-  --crayon:#7e55bd;--wrapper:#ffd544;--outline:#29211b;--shoe:#1768c9;
-  position:relative;width:116px;height:168px;display:block;transform-origin:50% 100%;
-}
-.cr-mascot.small{width:72px;height:104px}
-.cr-mascot .wax{position:absolute;left:24%;top:10%;width:52%;height:66%;background:repeating-linear-gradient(168deg,rgba(255,255,255,.13) 0 3px,transparent 3px 8px),var(--crayon);border:4px solid var(--outline);border-radius:20px 20px 13px 13px;box-shadow:inset 5px 0 rgba(255,255,255,.12)}
-.cr-mascot .tip{position:absolute;left:25%;top:0;width:50%;height:25%;background:var(--crayon);border:4px solid var(--outline);clip-path:polygon(50% 0,100% 100%,0 100%)}
-.cr-mascot .wrapper{position:absolute;left:20%;top:47%;width:60%;height:26%;background:repeating-linear-gradient(172deg,rgba(255,255,255,.18) 0 3px,transparent 3px 8px),var(--wrapper);border:4px solid var(--outline);border-radius:7px;z-index:4}
-.cr-mascot .wrapper:before,.cr-mascot .wrapper:after{content:"";position:absolute;left:8%;right:8%;height:4px;background:var(--outline);opacity:.65}
-.cr-mascot .wrapper:before{top:18%}.cr-mascot .wrapper:after{bottom:18%}
-.cr-mascot .eye{position:absolute;top:31%;width:9%;height:7%;border-radius:50%;background:var(--outline);z-index:5}.cr-mascot .eye.left{left:38%}.cr-mascot .eye.right{right:38%}
-.cr-mascot .smile{position:absolute;left:41%;top:39%;width:18%;height:10%;border-bottom:4px solid var(--outline);border-radius:0 0 50% 50%;z-index:5}
-.cr-mascot .arm{position:absolute;top:54%;width:34%;height:10%;border:4px solid var(--outline);border-radius:999px;background:var(--crayon);z-index:2}.cr-mascot .arm.left{left:-4%;transform:rotate(-24deg)}.cr-mascot .arm.right{right:-4%;transform:rotate(20deg)}
-.cr-mascot .leg{position:absolute;top:76%;width:14%;height:24%;border:4px solid var(--outline);background:var(--crayon);border-radius:999px;z-index:1}.cr-mascot .leg.left{left:31%;transform:rotate(18deg)}.cr-mascot .leg.right{right:31%;transform:rotate(-20deg)}
-.cr-mascot .shoe{position:absolute;bottom:-3%;width:31%;height:15%;border:4px solid var(--outline);border-radius:55% 45% 35% 45%;background:#999;z-index:5}.cr-mascot .shoe.left{left:16%;transform:rotate(-7deg)}.cr-mascot .shoe.right{right:14%;transform:rotate(7deg)}
-.cr-mascot .speed-trail,.cr-mascot .flame-trail,.cr-mascot .core-badge{display:none;position:absolute;pointer-events:none}
-.cr-mascot .speed-trail{right:82%;top:34%;width:85%;height:38%;z-index:-1}.cr-mascot .speed-trail:before,.cr-mascot .speed-trail:after{content:"";position:absolute;right:0;width:100%;height:7px;border-radius:999px;background:#7e55bd;box-shadow:0 17px 0 #1768c9,0 34px 0 #efb91d;transform:skewX(-22deg);opacity:.85}.cr-mascot .speed-trail:after{width:72%;top:10px;right:10%;opacity:.45}
-.cr-mascot .flame-trail{right:78%;bottom:24%;width:62%;height:43%;background:linear-gradient(90deg,#e74b35,#ef7d24,#ffd544);clip-path:polygon(100% 44%,62% 0,67% 34%,0 18%,34% 50%,0 84%,68% 65%,58% 100%);opacity:.92;z-index:-2}
-.cr-mascot .core-badge{width:34px;height:34px;top:48%;right:10%;border:3px solid var(--outline);border-radius:50%;background:#ffd544;z-index:7}.cr-mascot .core-badge:before{content:"";position:absolute;left:50%;top:50%;width:12px;height:12px;transform:translate(-50%,-50%) rotate(45deg);background:#1768c9}
-.cr-mascot.first .core-badge,.cr-mascot.speedy .speed-trail,.cr-mascot.super .flame-trail{display:block}.cr-mascot.rusher .shoe{background:var(--shoe)}
-.cr-mascot.running .leg.left{animation:legLeft .16s steps(2,end) infinite alternate}.cr-mascot.running .leg.right{animation:legRight .16s steps(2,end) infinite alternate}.cr-mascot.running .arm.left{animation:armLeft .16s steps(2,end) infinite alternate}.cr-mascot.running .arm.right{animation:armRight .16s steps(2,end) infinite alternate}
-@keyframes legLeft{from{transform:rotate(30deg)}to{transform:rotate(-18deg)}}@keyframes legRight{from{transform:rotate(-30deg)}to{transform:rotate(18deg)}}@keyframes armLeft{from{transform:rotate(-32deg)}to{transform:rotate(14deg)}}@keyframes armRight{from{transform:rotate(30deg)}to{transform:rotate(-14deg)}}
-.cr-mascot.small .wax,.cr-mascot.small .tip,.cr-mascot.small .wrapper,.cr-mascot.small .arm,.cr-mascot.small .leg,.cr-mascot.small .shoe{border-width:3px}.cr-mascot.small .smile{border-bottom-width:3px}.cr-mascot.small .core-badge{width:22px;height:22px;border-width:2px}.cr-mascot.small .core-badge:before{width:8px;height:8px}
-.cr-mascot-wrap{position:relative;display:grid;place-items:center;min-height:185px;z-index:3}
-.crayon-card{position:relative;min-height:320px;display:grid;place-items:center;text-align:center;overflow:hidden;background:linear-gradient(#fffaf0,#f5e8bf);border:3px solid var(--ink);border-radius:20px}.crayon-card:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 42px,rgba(23,104,201,.08) 42px 44px);pointer-events:none}.crayon-figure{position:relative;z-index:2;font-size:108px;line-height:1;filter:drop-shadow(4px 5px 0 rgba(41,33,27,.16));transition:.2s}.crayon-name{position:relative;z-index:2;font-size:24px;font-weight:1000;margin-top:10px}.crayon-meta{position:relative;z-index:2;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}.chip{padding:5px 9px;border:2px solid var(--ink);border-radius:999px;background:#fff;font-size:11px;font-weight:900}.locked{filter:grayscale(1);opacity:.55}.spark{position:absolute;font-size:34px;z-index:3}.spark.a{left:14%;top:14%}.spark.b{right:14%;top:20%}.spark.c{left:20%;bottom:12%}.spark.d{right:20%;bottom:11%}
-.achievements{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ach{padding:10px;border:2px solid var(--ink);border-radius:13px;background:#fffaf0;font-size:12px}.ach strong{display:block;margin-bottom:3px}.ach.unlocked{background:#fff2a8}.ach.claimed{background:#dff1d9}
-.gamebox{padding:0;overflow:hidden}.gamehead{padding:16px 18px;border-bottom:3px solid var(--ink);display:flex;justify-content:space-between;gap:10px;align-items:center}.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:11px 14px}.hud div{border:2px solid var(--ink);border-radius:999px;text-align:center;padding:6px;font-size:11px;background:#fffaf0;font-weight:900}.arena{height:340px;position:relative;overflow:hidden;background:linear-gradient(#cfeaff,#f6f0d7);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);touch-action:manipulation;user-select:none;outline:none}.sun{position:absolute;right:26px;top:22px;font-size:37px}.cloud{position:absolute;color:#fff;font-size:43px;filter:drop-shadow(2px 2px 0 rgba(41,33,27,.1))}.cloud.one{left:24%;top:35px}.cloud.two{right:20%;top:88px;font-size:33px}.ground{position:absolute;left:0;right:0;bottom:0;height:70px;background:#e2c47e;border-top:5px solid #6f5636}.ground:after{content:"";position:absolute;left:-20%;right:-20%;top:14px;height:9px;background:repeating-linear-gradient(90deg,#795f40 0 30px,transparent 30px 50px);opacity:.24;animation:move .7s linear infinite}@keyframes move{to{transform:translateX(-50px)}}.runner{position:absolute;left:62px;bottom:64px;width:72px;height:104px;display:block;z-index:8;transform-origin:center bottom;filter:drop-shadow(3px 4px 0 rgba(41,33,27,.16))}.runner.running{animation:bob .16s steps(2,end) infinite alternate}@keyframes bob{from{rotate:-1.5deg}to{rotate:1.5deg}}.ob{position:absolute;bottom:66px;z-index:6}.ob.rock{width:43px;height:37px;border:4px solid var(--ink);border-radius:55% 45% 42% 50%;background:#93877b}.ob.crate{width:46px;height:46px;border:4px solid var(--ink);background:#d18a43}.ob.pencil{width:23px;height:61px;border:4px solid var(--ink);background:#f0bc25}.hint{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);z-index:10;padding:9px 12px;border:3px dashed var(--ink);border-radius:13px;background:rgba(255,250,239,.92);font-size:12px;font-weight:1000;text-align:center;max-width:80%}.arena.live .hint{display:none}.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px}.controls button{min-height:54px}.message{padding:0 14px 15px;font-size:13px;min-height:34px}.result{display:none;margin:0 14px 14px;padding:13px;border:3px solid var(--ink);border-radius:14px;background:#fff9c9}.result.show{display:block}.result b{font-size:19px}.resultscore{font-size:31px;font-weight:1000;color:var(--purple);margin:4px 0}.claimrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.flow{padding:48px 0;border-top:3px dashed rgba(41,33,27,.25)}.flow h2{font-size:38px;margin:0 0 20px}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.step{border:3px solid var(--ink);border-radius:16px;padding:16px;background:#fffaf0}.step b{display:grid;place-items:center;width:34px;height:34px;border:3px solid var(--ink);border-radius:50%;background:#ffd544;margin-bottom:8px}.step strong{display:block;margin-bottom:5px}.tiny{font-size:11px;opacity:.62;line-height:1.45}
-footer{padding:24px 0 36px;border-top:3px solid var(--ink);font-size:12px;opacity:.7}
-@media(max-width:820px){.grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.wrap{width:calc(100% - 18px)}.navlinks .x{display:none}.hero{padding-top:38px}.hero h1{font-size:50px}.paper{padding:14px}.achievements{grid-template-columns:1fr}.hud{grid-template-columns:repeat(3,1fr);padding:8px}.arena{height:280px}.runner{left:28px;width:72px;height:104px}.controls{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.walletline{align-items:flex-start;flex-direction:column}.walletaddr{max-width:100%}}
+:root{--paper:#f8efd8;--paper2:#fff9ea;--ink:#29211b;--blue:#1768c9;--red:#e74b35;--yellow:#ffd544;--green:#2c9b58;--purple:#7e55bd;--max:1080px}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:repeating-linear-gradient(0deg,rgba(70,45,25,.025) 0 1px,transparent 1px 5px),var(--paper);font-family:"Comic Sans MS","Trebuchet MS",system-ui,sans-serif}.wrap{width:min(var(--max),calc(100% - 24px));margin:auto}
+a{color:inherit}.nav{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:10px}.top{position:sticky;top:0;z-index:20;background:rgba(248,239,216,.95);border-bottom:3px solid var(--ink);backdrop-filter:blur(8px)}.brand{font-size:24px;font-weight:1000;text-decoration:none;color:var(--blue)}
+.btn{border:3px solid var(--ink);border-radius:15px;background:var(--paper2);box-shadow:3px 4px 0 var(--ink);padding:10px 15px;font-weight:1000;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:46px}.btn:disabled{opacity:.42;cursor:not-allowed}.btn.purple{background:var(--purple);color:#fff}.btn.yellow{background:var(--yellow)}.btn.blue{background:var(--blue);color:#fff}.btn.green{background:#bde8c8}
+.hero{text-align:center;padding:42px 0 24px}.hero h1{font-size:clamp(48px,9vw,84px);line-height:.9;margin:8px 0 15px;color:var(--purple);letter-spacing:-.06em}.hero p{max-width:760px;margin:0 auto 14px;font-size:18px;line-height:1.5}.badge{display:inline-block;border:2px dashed var(--ink);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900}
+.grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:18px;padding-bottom:36px}.stack{display:grid;gap:14px}.paper{background:rgba(255,250,239,.94);border:3px solid var(--ink);border-radius:20px;padding:18px;box-shadow:5px 6px 0 var(--ink)}.paper h2{margin:0 0 10px;font-size:27px}.muted{font-size:12px;opacity:.65;line-height:1.45}.row{display:flex;gap:8px;flex-wrap:wrap}.status{display:grid;gap:7px}.line{display:flex;justify-content:space-between;gap:10px;border:2px dashed rgba(41,33,27,.35);border-radius:12px;background:#fffdf5;padding:9px 10px;font-size:12px}.mono{font-family:ui-monospace,monospace;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card{text-align:center;border:3px solid var(--ink);border-radius:18px;background:#fff7dc;padding:14px}.card img{width:190px;max-width:65%;border-radius:18px}.big{font-size:25px;font-weight:1000;margin-top:7px}.chips{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:8px}.chip{font-size:11px;border:2px solid var(--ink);border-radius:999px;background:#fff;padding:5px 8px;font-weight:900}
+.ach{display:grid;grid-template-columns:1fr 1fr;gap:8px}.trait{border:2px solid var(--ink);border-radius:12px;padding:9px;background:#fff}.trait.on{background:#dff1d9}.trait strong{display:block;font-size:13px}.trait span{font-size:11px;opacity:.65}
+.game{padding:0;overflow:hidden}.gamehead{padding:15px 17px;border-bottom:3px solid var(--ink)}.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:10px 12px}.hud div{text-align:center;border:2px solid var(--ink);border-radius:999px;padding:6px;background:#fff;font-size:11px;font-weight:900}
+.arena{height:330px;position:relative;overflow:hidden;background:linear-gradient(#d7efff,#fff6d7);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);touch-action:manipulation}.ground{position:absolute;left:0;right:0;bottom:0;height:68px;background:#e2c47e;border-top:5px solid #6f5636}.runner{position:absolute;left:58px;bottom:62px;width:64px;height:95px;z-index:4;transform-origin:center bottom}.runner .body{position:absolute;left:18px;top:12px;width:34px;height:70px;background:#7e55bd;border:4px solid var(--ink);border-radius:15px}.runner .tip{position:absolute;left:19px;top:0;width:32px;height:30px;background:#7e55bd;border:4px solid var(--ink);clip-path:polygon(50% 0,100% 100%,0 100%)}.runner .wrapr{position:absolute;left:12px;top:47px;width:47px;height:27px;background:#ffd544;border:4px solid var(--ink);border-radius:5px}.runner .eye{position:absolute;top:34px;width:6px;height:6px;background:var(--ink);border-radius:50%;z-index:3}.runner .e1{left:27px}.runner .e2{left:40px}.runner .leg{position:absolute;top:78px;width:9px;height:18px;background:#7e55bd;border:3px solid var(--ink);border-radius:8px}.runner .l1{left:20px}.runner .l2{left:42px}.runner.running .l1{animation:kick1 .16s infinite alternate}.runner.running .l2{animation:kick2 .16s infinite alternate}@keyframes kick1{to{transform:rotate(30deg)}}@keyframes kick2{to{transform:rotate(-30deg)}}.ob{position:absolute;bottom:64px;border:4px solid var(--ink);background:#8f8377;border-radius:45%;width:42px;height:38px}.hint{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:#fffaf0;border:3px dashed var(--ink);padding:9px 11px;border-radius:12px;font-size:12px;font-weight:1000;text-align:center}.arena.live .hint{display:none}.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px}.msg{padding:0 12px 13px;font-size:12px}.result{margin:0 12px 13px;padding:12px;border:3px solid var(--ink);border-radius:13px;background:#fff4b9;display:none}.result.show{display:block}.scorebig{font-size:30px;color:var(--purple);font-weight:1000}
+.notice{border:2px solid var(--ink);border-radius:12px;padding:10px;background:#fff3c5;font-size:12px;line-height:1.45}.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}@media(max-width:560px){.wrap{width:calc(100% - 16px)}.nav .btn{padding:8px 10px}.hero{padding-top:30px}.paper{padding:14px}.ach{grid-template-columns:1fr}.arena{height:270px}.runner{left:26px}.controls{grid-template-columns:1fr}.line{flex-direction:column}.mono{max-width:100%}}
 </style>
 </head>
 <body>
-<nav><div class="wrap nav"><a class="brand" href="/">← CRAYON RUSH</a><div class="navlinks"><a class="btn x" href="https://x.com/CrayonRush" target="_blank" rel="noopener">𝕏</a><a class="btn" href="/game/">RUSH GAME</a></div></div></nav>
+<div class="top"><div class="wrap nav"><a class="brand" href="/">← CRAYON RUSH</a><a class="btn" href="/game/">RUSH GAME</a></div></div>
 
-<header class="hero"><div class="wrap"><div class="eyebrow">Interactive Crayon Core test</div><h1>CRAYON CORE 🖍️</h1><p class="lead">Claim a Test Crayon mascot, run with it, unlock traits and watch the same Crayon evolve.</p><div class="badge">Robinhood Chain Testnet • Chain ID 46630</div></div></header>
+<header class="hero wrap">
+  <div class="badge">PUBLIC TEST • ROBINHOOD CHAIN TESTNET • CHAIN ID 46630</div>
+  <h1>CRAYON CORE 🖍️</h1>
+  <p>Claim a free Test Crayon, play Rush, unlock earned traits and claim them to the NFT metadata on testnet.</p>
+</header>
 
 <main class="wrap grid">
 <section class="stack">
-  <article class="paper walletbox">
+  <article class="paper">
     <h2>1. Connect</h2>
-    <p class="muted">Use an EVM wallet. If you don't have one installed, Guest Demo still lets you test the whole flow.</p>
-    <div class="walletline"><span><span id="walletDot" class="statusdot"></span> <b id="walletState">Not connected</b></span><span id="walletAddress" class="walletaddr">—</span></div>
-    <div class="walletline"><span>Network</span><span id="networkState" class="network">Not checked</span></div>
-    <div class="claimrow"><button id="connectBtn" class="btn primary" type="button">CONNECT WALLET</button><button id="guestBtn" class="btn" type="button">GUEST DEMO</button></div>
+    <div class="status">
+      <div class="line"><b>Wallet</b><span id="walletText" class="mono">Not connected</span></div>
+      <div class="line"><b>Network</b><span id="networkText">Not checked</span></div>
+      <div class="line"><b>Test ETH</b><span id="balanceText">0</span></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button id="connectBtn" class="btn purple">CONNECT WALLET</button>
+      <button id="faucetBtn" class="btn yellow" disabled>GET TEST ETH</button>
+    </div>
+    <div class="links">
+      <a class="btn" target="_blank" rel="noopener" href="https://faucet.testnet.chain.robinhood.com">OFFICIAL FAUCET ↗</a>
+    </div>
+    <p class="muted">The in-page faucet is a Crayon Rush testnet relayer. If it is empty, use Robinhood's official testnet faucet.</p>
   </article>
 
   <article class="paper">
     <h2>2. Your Test Crayon</h2>
-    <div id="crayonCard" class="crayon-card locked">
-      
-      <div>
-        <div class="cr-mascot-wrap"><div id="crayonFigure" class="cr-mascot" aria-label="Crayon Rush test mascot">
-<span class="speed-trail"></span><span class="flame-trail"></span><span class="tip"></span><span class="wax"></span><span class="wrapper"></span>
-<span class="eye left"></span><span class="eye right"></span><span class="smile"></span><span class="arm left"></span><span class="arm right"></span>
-<span class="leg left"></span><span class="leg right"></span><span class="shoe left"></span><span class="shoe right"></span><span class="core-badge"></span>
-</div></div>
-        <div id="crayonName" class="crayon-name">NO TEST CRAYON YET</div>
-        <div class="crayon-meta"><span class="chip">LV <span id="levelText">0</span></span><span class="chip">BEST <span id="bestText">0</span></span><span class="chip"><span id="claimedText">0</span> ACHIEVEMENTS</span></div>
-      </div>
+    <div class="card">
+      <img src="/core/test-crayon.svg" alt="Test Crayon">
+      <div id="tokenName" class="big">NO TEST CRAYON YET</div>
+      <div class="chips"><span class="chip">BEST <span id="bestText">0</span></span><span class="chip">TRAITS <span id="traitCount">0</span>/4</span></div>
     </div>
-    <div class="claimrow" style="margin-top:12px"><button id="claimCrayonBtn" class="btn yellow" type="button" disabled>CLAIM TEST CRAYON</button><button id="resetBtn" class="btn" type="button">RESET DEMO</button></div>
-    <p id="crayonStatus" class="muted" style="margin-top:10px">Connect or enter Guest Demo first.</p>
+    <div class="row" style="margin-top:10px">
+      <button id="mintBtn" class="btn green" disabled>CLAIM FREE TEST CRAYON</button>
+      <a id="metadataBtn" class="btn" target="_blank" rel="noopener" style="display:none">VIEW METADATA ↗</a>
+    </div>
+    <p id="mintMsg" class="muted">Connect first.</p>
   </article>
 
   <article class="paper">
-    <h2>Achievements</h2>
-    <div class="achievements">
-      <div class="ach" data-ach="first"><strong>🖍️ First Rush</strong>Finish one run.</div>
-      <div class="ach" data-ach="speedy"><strong>⚡ Speedy Crayon</strong>Score 250+.</div>
-      <div class="ach" data-ach="rusher"><strong>👟 Rusher</strong>Score 500+.</div>
-      <div class="ach" data-ach="super"><strong>🔥 Super Rusher</strong>Score 900+.</div>
+    <h2>Earned Traits</h2>
+    <div class="ach">
+      <div class="trait" data-bit="1"><strong>🖍️ First Rush</strong><span>Finish one verified run.</span></div>
+      <div class="trait" data-bit="2"><strong>⚡ Speedy Crayon</strong><span>Reach 250 distance.</span></div>
+      <div class="trait" data-bit="4"><strong>👟 Rusher</strong><span>Reach 500 distance.</span></div>
+      <div class="trait" data-bit="8"><strong>🔥 Super Rusher</strong><span>Reach 900 distance.</span></div>
     </div>
   </article>
 </section>
 
-<section class="paper gamebox">
-  <div class="gamehead"><div><div class="eyebrow">Playable demo</div><h2 style="margin:3px 0 0">3. Run with your Crayon</h2></div><div class="muted">SPACE / ↑ / TAP</div></div>
+<section class="paper game">
+  <div class="gamehead"><h2 style="margin:0">3. Play + Claim</h2><div class="muted">SPACE / ↑ / TAP to jump</div></div>
   <div class="hud"><div>Distance <span id="scoreText">0</span></div><div>Speed <span id="speedText">1.0x</span></div><div>Cleared <span id="clearedText">0</span></div></div>
-  <div id="arena" class="arena" tabindex="0"><div class="sun">☀️</div><div class="cloud one">☁</div><div class="cloud two">☁</div><div class="runner" id="runner"><div id="runnerMascot" class="cr-mascot small" aria-label="Running Test Crayon">
-<span class="speed-trail"></span><span class="flame-trail"></span><span class="tip"></span><span class="wax"></span><span class="wrapper"></span>
-<span class="eye left"></span><span class="eye right"></span><span class="smile"></span><span class="arm left"></span><span class="arm right"></span>
-<span class="leg left"></span><span class="leg right"></span><span class="shoe left"></span><span class="shoe right"></span><span class="core-badge"></span>
-</div></div><div class="ground"></div><div class="hint">CLAIM A TEST CRAYON, THEN RUN.<br>JUMP OVER THE OBSTACLES.</div></div>
-  <div class="controls"><button id="startBtn" class="btn blue" type="button" disabled>START RUN</button><button id="jumpBtn" class="btn yellow" type="button" disabled>↑ JUMP</button></div>
-  <div id="gameMsg" class="message">Your Test Crayon is waiting.</div>
-  <div id="resultBox" class="result"><b>RUN COMPLETE</b><div id="resultScore" class="resultscore">0</div><div id="unlockText"></div><div class="claimrow"><button id="claimAchievementBtn" class="btn primary" type="button" disabled>CLAIM NEW PROGRESS</button></div><div id="claimNote" class="tiny" style="margin-top:8px"></div></div>
+  <div id="arena" class="arena">
+    <div id="runner" class="runner">
+      <div class="tip"></div><div class="body"></div><div class="wrapr"></div><div class="eye e1"></div><div class="eye e2"></div><div class="leg l1"></div><div class="leg l2"></div>
+    </div>
+    <div class="ground"></div>
+    <div class="hint">CLAIM A TEST CRAYON FIRST.<br>THEN START YOUR RUN.</div>
+  </div>
+  <div class="controls">
+    <button id="startBtn" class="btn blue" disabled>START RUN</button>
+    <button id="jumpBtn" class="btn yellow" disabled>↑ JUMP</button>
+  </div>
+  <div id="gameMsg" class="msg">Waiting for your Test Crayon.</div>
+  <div id="resultBox" class="result">
+    <b>RUN VERIFIED</b>
+    <div id="resultScore" class="scorebig">0</div>
+    <div id="unlockMsg"></div>
+    <div class="row" style="margin-top:9px">
+      <button id="claimBtn" class="btn purple" disabled>CLAIM PROGRESS ONCHAIN</button>
+    </div>
+    <p id="claimMsg" class="muted"></p>
+  </div>
 </section>
 </main>
 
-<section class="flow"><div class="wrap"><h2>What the real onchain version does</h2><div class="steps"><div class="step"><b>1</b><strong>Claim</strong><span class="tiny">Mint a free Test Crayon on Robinhood Chain testnet.</span></div><div class="step"><b>2</b><strong>Rush</strong><span class="tiny">Play offchain so gameplay stays fast.</span></div><div class="step"><b>3</b><strong>Verify</strong><span class="tiny">Crayon Rush verifies the score before an achievement can be written.</span></div><div class="step"><b>4</b><strong>Evolve</strong><span class="tiny">Unlocked traits and best-score milestones become part of that Crayon's history.</span></div></div><p class="tiny" style="margin-top:14px">This page is fully playable now. Until the included contract is deployed, claims are stored in browser demo state and clearly labeled as demo claims. Deploy the included contract to turn the claim step into a real Robinhood Chain testnet transaction.</p></div></section>
+<section class="wrap" style="padding-bottom:38px">
+  <div class="notice"><b>What this test proves:</b> the artwork stays the same. Your verified Rush achievements are written to Crayon Core on Robinhood Chain testnet, and the Test Crayon metadata endpoint reads those onchain traits. Reload or use another browser with the same wallet and the traits are still there.</div>
+</section>
 
-<footer><div class="wrap">Crayon Rush • Crayon Core • Play. Unlock. Evolve.</div></footer>
+<script type="module">
+import { BrowserProvider, Contract } from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
 
-<script>
-(()=>{
-  const CHAIN_ID_HEX='0xb626', CHAIN_ID_DEC=46630;
-  const RPC='https://rpc.testnet.chain.robinhood.com';
-  const EXPLORER='https://explorer.testnet.chain.robinhood.com';
-  const $=s=>document.querySelector(s);
-  const walletDot=$('#walletDot'),walletState=$('#walletState'),walletAddress=$('#walletAddress'),networkState=$('#networkState');
-  const connectBtn=$('#connectBtn'),guestBtn=$('#guestBtn'),claimCrayonBtn=$('#claimCrayonBtn'),resetBtn=$('#resetBtn');
-  const crayonCard=$('#crayonCard'),crayonFigure=$('#crayonFigure'),crayonName=$('#crayonName'),levelText=$('#levelText'),bestText=$('#bestText'),claimedText=$('#claimedText'),crayonStatus=$('#crayonStatus');
-  const arena=$('#arena'),runner=$('#runner'),runnerMascot=$('#runnerMascot'),startBtn=$('#startBtn'),jumpBtn=$('#jumpBtn'),scoreText=$('#scoreText'),speedText=$('#speedText'),clearedText=$('#clearedText'),gameMsg=$('#gameMsg'),resultBox=$('#resultBox'),resultScore=$('#resultScore'),unlockText=$('#unlockText'),claimAchievementBtn=$('#claimAchievementBtn'),claimNote=$('#claimNote');
-  let wallet='',guest=false,state=null,pending=[];
-  let running=false,raf=0,last=0,startAt=0,distance=0,score=0,jumpY=0,jumpV=0,nextSpawn=0,obs=[],cleared=0;
-  const BASE=290,ACCEL=8,MAX=620,GRAVITY=2400,JUMP=650;
+const CHAIN_ID_HEX="0xb626";
+const RPC="https://rpc.testnet.chain.robinhood.com";
+const EXPLORER="https://explorer.testnet.chain.robinhood.com";
 
-  function key(){return 'crayon-core:'+wallet.toLowerCase()}
-  function fresh(){return {claimed:false,tokenId:0,best:0,runs:0,achievements:{first:false,speedy:false,rusher:false,super:false}}}
-  function save(){if(wallet)localStorage.setItem(key(),JSON.stringify(state))}
-  function load(){if(!wallet)return fresh();try{return {...fresh(),...JSON.parse(localStorage.getItem(key())||'{}')}}catch(e){return fresh()}}
-  function short(a){return a? a.slice(0,6)+'…'+a.slice(-4):'—'}
-  function level(){if(!state||!state.claimed)return 0;let n=1;Object.values(state.achievements||{}).forEach(v=>{if(v)n++});return n}
-  function applyMascotState(el,runningNow=false){
-    if(!el)return;
-    el.classList.toggle('first',!!state?.achievements?.first);
-    el.classList.toggle('speedy',!!state?.achievements?.speedy);
-    el.classList.toggle('rusher',!!state?.achievements?.rusher);
-    el.classList.toggle('super',!!state?.achievements?.super);
-    el.classList.toggle('running',!!runningNow);
+const TEST_ABI=[
+  "function claim() returns (uint256)",
+  "function tokenOf(address) view returns (uint256)"
+];
+const CORE_ABI=[
+  "function claimProgress(uint256 tokenId,uint256 newBestScore,uint256 newAchievementBits,bytes32 claimId,uint256 deadline,bytes signature)",
+  "function bestScore(uint256) view returns (uint256)",
+  "function achievementBits(uint256) view returns (uint256)"
+];
+
+const $=s=>document.querySelector(s);
+const walletText=$("#walletText"),networkText=$("#networkText"),balanceText=$("#balanceText");
+const connectBtn=$("#connectBtn"),faucetBtn=$("#faucetBtn"),mintBtn=$("#mintBtn"),metadataBtn=$("#metadataBtn"),mintMsg=$("#mintMsg");
+const tokenName=$("#tokenName"),bestText=$("#bestText"),traitCount=$("#traitCount");
+const arena=$("#arena"),runner=$("#runner"),startBtn=$("#startBtn"),jumpBtn=$("#jumpBtn"),scoreText=$("#scoreText"),speedText=$("#speedText"),clearedText=$("#clearedText"),gameMsg=$("#gameMsg");
+const resultBox=$("#resultBox"),resultScore=$("#resultScore"),unlockMsg=$("#unlockMsg"),claimBtn=$("#claimBtn"),claimMsg=$("#claimMsg");
+
+let provider,signer,wallet,state={tokenId:0,bestScore:0,achievementBits:0,testCrayonAddress:null,crayonCoreAddress:null};
+let running=false,raf,last,startAt,nextSpawn,score=0,distance=0,jumpY=0,jumpV=0,jumps=0,cleared=0,obs=[],sessionId=null,pendingClaim=null;
+const BASE=300,ACCEL=8.5,MAX=720,GRAVITY=2050,JUMP=760;
+
+function short(a){return a?a.slice(0,6)+"..."+a.slice(-4):""}
+function bitCount(n){let c=0;for(const b of [1,2,4,8])if(n&b)c++;return c}
+function render(){
+  walletText.textContent=wallet?short(wallet):"Not connected";
+  tokenName.textContent=state.tokenId?`TEST CRAYON #${state.tokenId}`:"NO TEST CRAYON YET";
+  bestText.textContent=state.bestScore||0;traitCount.textContent=bitCount(state.achievementBits||0);
+  document.querySelectorAll(".trait").forEach(el=>el.classList.toggle("on",!!((state.achievementBits||0)&Number(el.dataset.bit))));
+  faucetBtn.disabled=!wallet;mintBtn.disabled=!wallet||!!state.tokenId;startBtn.disabled=!state.tokenId||running;
+  if(state.tokenId){metadataBtn.style.display="inline-flex";metadataBtn.href=`/api/core/metadata/${state.tokenId}`;mintMsg.textContent="This is a real testnet NFT. Earned traits are read from Crayon Core."}
+  else{metadataBtn.style.display="none";mintMsg.textContent=wallet?"Get test ETH if needed, then claim your free Test Crayon.":"Connect first."}
+}
+async function ensureNetwork(){
+  const cid=await ethereum.request({method:"eth_chainId"});
+  if(cid.toLowerCase()!==CHAIN_ID_HEX){
+    try{await ethereum.request({method:"wallet_switchEthereumChain",params:[{chainId:CHAIN_ID_HEX}]})}
+    catch(e){
+      if(e.code===4902)await ethereum.request({method:"wallet_addEthereumChain",params:[{chainId:CHAIN_ID_HEX,chainName:"Robinhood Chain Testnet",nativeCurrency:{name:"ETH",symbol:"ETH",decimals:18},rpcUrls:[RPC],blockExplorerUrls:[EXPLORER]}]});
+      else throw e;
+    }
   }
-  function render(){
-    const connected=!!wallet;walletDot.classList.toggle('live',connected);walletState.textContent=connected?(guest?'Guest Demo':'Wallet connected'):'Not connected';walletAddress.textContent=connected?short(wallet):'—';claimCrayonBtn.disabled=!connected||state?.claimed;
-    if(state?.claimed){crayonCard.classList.remove('locked');applyMascotState(crayonFigure,false);applyMascotState(runnerMascot,false);crayonName.textContent='TEST CRAYON #'+String(state.tokenId).padStart(3,'0');levelText.textContent=level();bestText.textContent=state.best||0;claimedText.textContent=Object.values(state.achievements||{}).filter(Boolean).length;crayonStatus.textContent=guest?'Guest Demo state is saved in this browser.':'Test Crayon demo state is linked to this wallet in this browser.';startBtn.disabled=false;jumpBtn.disabled=!running}
-    else{crayonCard.classList.add('locked');applyMascotState(crayonFigure,false);applyMascotState(runnerMascot,false);crayonName.textContent='NO TEST CRAYON YET';levelText.textContent='0';bestText.textContent='0';claimedText.textContent='0';crayonStatus.textContent=connected?'Claim your Test Crayon next.':'Connect or enter Guest Demo first.';startBtn.disabled=true;jumpBtn.disabled=true}
-    document.querySelectorAll('.ach').forEach(el=>{const id=el.dataset.ach;el.classList.toggle('claimed',!!state?.achievements?.[id]);el.classList.toggle('unlocked',pending.includes(id)&&!state?.achievements?.[id])});
+  networkText.textContent="Robinhood Testnet ✓";
+}
+async function refresh(){
+  if(!wallet)return;
+  const r=await fetch(`/api/core/state?wallet=${encodeURIComponent(wallet)}`);
+  const j=await r.json();
+  if(!r.ok){mintMsg.textContent=j.error||"Core not configured yet.";return}
+  state=j;balanceText.textContent=Number(j.balanceEth).toFixed(5)+" ETH";render();
+}
+connectBtn.onclick=async()=>{
+  if(!window.ethereum){alert("Install an EVM browser wallet first.");return}
+  try{
+    provider=new BrowserProvider(window.ethereum);
+    await provider.send("eth_requestAccounts",[]);
+    signer=await provider.getSigner();wallet=await signer.getAddress();
+    await ensureNetwork();await refresh();
+  }catch(e){console.error(e);networkText.textContent="Connection cancelled";}
+};
+faucetBtn.onclick=async()=>{
+  faucetBtn.disabled=true;faucetBtn.textContent="SENDING...";
+  try{
+    const r=await fetch("/api/core/faucet",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({wallet})});
+    const j=await r.json();
+    if(!r.ok)throw new Error(j.error||"Faucet failed");
+    faucetBtn.textContent=j.skipped?"ENOUGH TEST ETH ✓":"TEST ETH SENT ✓";
+    setTimeout(refresh,2500);
+  }catch(e){
+    alert(e.message+"\n\nUse the official Robinhood faucet button if needed.");
+    faucetBtn.textContent="GET TEST ETH";
+  }finally{setTimeout(()=>{faucetBtn.disabled=!wallet},1500)}
+};
+mintBtn.onclick=async()=>{
+  try{
+    mintBtn.disabled=true;mintBtn.textContent="CONFIRM IN WALLET...";
+    const c=new Contract(state.testCrayonAddress,TEST_ABI,signer);
+    const tx=await c.claim();mintMsg.innerHTML=`Mint submitted: <a target="_blank" href="${EXPLORER}/tx/${tx.hash}">${short(tx.hash)} ↗</a>`;
+    await tx.wait();await refresh();
+  }catch(e){console.error(e);mintMsg.textContent=e.shortMessage||e.message||"Mint failed."}
+  finally{mintBtn.textContent="CLAIM FREE TEST CRAYON";render()}
+};
+
+function speed(t){return Math.min(MAX,BASE+ACCEL*t)}
+function clearObs(){obs.forEach(o=>o.el.remove());obs=[]}
+function spawn(now){
+  const el=document.createElement("div");el.className="ob";arena.appendChild(el);
+  obs.push({el,x:arena.clientWidth+20,w:42,h:38,passed:false});
+  nextSpawn=now+750+Math.random()*480;
+}
+function jump(){if(running&&jumpY<=1){jumpV=JUMP;jumps++}}
+function collide(o){
+  const rx=arena.clientWidth<560?26:58,rw=64,ground=64;
+  return rx+rw-13>o.x&&rx+13<o.x+o.w&&ground+jumpY<ground+o.h-6;
+}
+function frame(now){
+  if(!running)return;if(!last)last=now;
+  const dt=Math.min(.035,(now-last)/1000);last=now;
+  const t=(now-startAt)/1000,sp=speed(t);distance+=sp*dt;score=Math.floor(distance/12);
+  scoreText.textContent=score;speedText.textContent=(sp/BASE).toFixed(1)+"x";clearedText.textContent=cleared;
+  if(jumpY>0||jumpV>0){jumpY+=jumpV*dt;jumpV-=GRAVITY*dt;if(jumpY<=0){jumpY=0;jumpV=0}}
+  runner.style.transform=`translateY(${-jumpY}px)`;
+  if(now>=nextSpawn)spawn(now);
+  for(const o of [...obs]){
+    o.x-=sp*dt;o.el.style.transform=`translateX(${o.x}px)`;
+    const rx=arena.clientWidth<560?26:58;
+    if(!o.passed&&o.x+o.w<rx){o.passed=true;cleared++}
+    if(collide(o)){finishRun();return}
+    if(o.x+o.w<-40){o.el.remove();obs=obs.filter(x=>x!==o)}
   }
-
-  async function ensureNetwork(){if(guest){networkState.textContent='Guest Demo';return true}if(!window.ethereum)return false;const cid=await ethereum.request({method:'eth_chainId'});if(cid.toLowerCase()===CHAIN_ID_HEX){networkState.textContent='Robinhood Testnet ✓';return true}try{await ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:CHAIN_ID_HEX}]})}catch(e){if(e.code===4902){await ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:CHAIN_ID_HEX,chainName:'Robinhood Chain Testnet',nativeCurrency:{name:'ETH',symbol:'ETH',decimals:18},rpcUrls:[RPC],blockExplorerUrls:[EXPLORER]}]})}else throw e}networkState.textContent='Robinhood Testnet ✓';return true}
-  connectBtn.addEventListener('click',async()=>{if(!window.ethereum){networkState.textContent='No browser wallet found';return}try{const a=await ethereum.request({method:'eth_requestAccounts'});wallet=a[0];guest=false;await ensureNetwork();state=load();render()}catch(e){networkState.textContent='Connection cancelled'}});
-  guestBtn.addEventListener('click',()=>{guest=true;wallet='0xDEMO'+Math.random().toString(16).slice(2,14).padEnd(36,'0');networkState.textContent='Guest Demo';state=load();render()});
-  claimCrayonBtn.addEventListener('click',()=>{if(!wallet||state.claimed)return;state.claimed=true;state.tokenId=Math.floor(1+Math.random()*999);save();render();gameMsg.textContent='Test Crayon claimed. Start your Rush!'});
-  resetBtn.addEventListener('click',()=>{if(wallet)localStorage.removeItem(key());state=fresh();pending=[];render();resultBox.classList.remove('show');gameMsg.textContent='Demo reset.'});
-
-  function speed(t){return Math.min(MAX,BASE+ACCEL*t)}
-  function clearObs(){obs.forEach(o=>o.el.remove());obs=[]}
-  function spawn(now,sp){const types=['rock','crate','pencil'],type=types[Math.floor(Math.random()*types.length)],el=document.createElement('div');el.className='ob '+type;arena.appendChild(el);const w=type==='pencil'?23:type==='crate'?46:43,h=type==='pencil'?61:type==='crate'?46:37;obs.push({el,x:arena.clientWidth+20,w,h,passed:false});const d=(sp-BASE)/(MAX-BASE);nextSpawn=now+(720-d*180)+Math.random()*(500-d*160)}
-  function jump(){if(running&&jumpY<=1){jumpV=JUMP}}
-  function collide(o){const mobile=arena.clientWidth<560,rx=mobile?28:65,rw=mobile?76:82,ground=66;return (rx+rw-16)>o.x&&(rx+16)<(o.x+o.w)&&(ground+jumpY)<(ground+o.h-7)}
-  function frame(now){if(!running)return;if(!last)last=now;const dt=Math.min(.035,(now-last)/1000);last=now;const t=(now-startAt)/1000,sp=speed(t);distance+=sp*dt;score=Math.floor(distance/12);scoreText.textContent=score;speedText.textContent=(sp/BASE).toFixed(1)+'x';clearedText.textContent=cleared;if(jumpY>0||jumpV>0){jumpY+=jumpV*dt;jumpV-=GRAVITY*dt;if(jumpY<=0){jumpY=0;jumpV=0}}runner.style.transform='translateY('+(-jumpY)+'px)';if(now>=nextSpawn)spawn(now,sp);for(const o of [...obs]){o.x-=sp*dt;o.el.style.transform='translateX('+o.x+'px)';const rx=arena.clientWidth<560?28:65;if(!o.passed&&o.x+o.w<rx){o.passed=true;cleared++;clearedText.textContent=cleared}if(collide(o)){finish();return}if(o.x+o.w<-30){o.el.remove();obs=obs.filter(x=>x!==o)}}raf=requestAnimationFrame(frame)}
-  function start(){if(!state?.claimed||running)return;running=true;last=0;distance=0;score=0;cleared=0;jumpY=0;jumpV=0;clearObs();scoreText.textContent='0';speedText.textContent='1.0x';clearedText.textContent='0';resultBox.classList.remove('show');arena.classList.add('live');runner.classList.add('running');applyMascotState(runnerMascot,true);startBtn.disabled=true;jumpBtn.disabled=false;gameMsg.textContent='RUN! Jump over the obstacles.';startAt=performance.now();nextSpawn=startAt+1150;raf=requestAnimationFrame(frame);arena.focus()}
-  function unlockedFor(s){const x=['first'];if(s>=250)x.push('speedy');if(s>=500)x.push('rusher');if(s>=900)x.push('super');return x.filter(id=>!state.achievements[id])}
-  function finish(){if(!running)return;running=false;cancelAnimationFrame(raf);arena.classList.remove('live');runner.classList.remove('running');applyMascotState(runnerMascot,false);startBtn.disabled=false;jumpBtn.disabled=true;state.runs=(state.runs||0)+1;state.best=Math.max(state.best||0,score);pending=unlockedFor(score);save();resultScore.textContent='Distance '+score;unlockText.textContent=pending.length?'New unlocks: '+pending.map(id=>({first:'Core Badge',speedy:'Speedy Crayon',rusher:'Rusher',super:'Super Rusher'}[id])).join(', '):'No new achievement this run. Beat your best and keep rushing.';claimAchievementBtn.disabled=!pending.length;claimNote.textContent=pending.length?(guest?'Guest Demo claim will save these achievements in this browser.':'Demo claim will save these achievements to your Test Crayon profile. Deploy the included contract to make this a real onchain claim.'):' ';resultBox.classList.add('show');render();gameMsg.textContent='Run complete.'}
-  claimAchievementBtn.addEventListener('click',()=>{if(!pending.length)return;pending.forEach(id=>state.achievements[id]=true);pending=[];save();claimAchievementBtn.disabled=true;claimNote.textContent=guest?'Achievements claimed in Guest Demo ✓':'Achievements claimed to Test Crayon demo profile ✓';render()});
-  startBtn.addEventListener('click',start);jumpBtn.addEventListener('click',jump);arena.addEventListener('pointerdown',e=>{if(running){e.preventDefault();jump()}});document.addEventListener('keydown',e=>{if(running&&!e.repeat&&['Space','ArrowUp','KeyW'].includes(e.code)){e.preventDefault();jump()}});
-  state=fresh();render();
-})();
+  raf=requestAnimationFrame(frame);
+}
+startBtn.onclick=async()=>{
+  if(!state.tokenId||running)return;
+  try{
+    const r=await fetch("/api/core/start",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({wallet})});
+    const j=await r.json();if(!r.ok)throw new Error(j.error);
+    sessionId=j.sessionId;
+  }catch(e){gameMsg.textContent=e.message;return}
+  running=true;last=0;score=0;distance=0;jumpY=0;jumpV=0;jumps=0;cleared=0;clearObs();resultBox.classList.remove("show");
+  arena.classList.add("live");runner.classList.add("running");startBtn.disabled=true;jumpBtn.disabled=false;gameMsg.textContent="RUN!";startAt=performance.now();nextSpawn=startAt+1100;raf=requestAnimationFrame(frame);
+};
+async function finishRun(){
+  if(!running)return;running=false;cancelAnimationFrame(raf);arena.classList.remove("live");runner.classList.remove("running");jumpBtn.disabled=true;startBtn.disabled=false;
+  const durationMs=Math.round(performance.now()-startAt);
+  gameMsg.textContent="Verifying run...";
+  try{
+    const r=await fetch("/api/core/finish",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({wallet,tokenId:state.tokenId,sessionId,score,durationMs,jumps,obstaclesCleared:cleared})});
+    const j=await r.json();if(!r.ok)throw new Error(j.error||"Run rejected");
+    pendingClaim=j.claim;resultScore.textContent="Distance "+j.score;
+    const added=j.achievementBits & ~(state.achievementBits||0);
+    const names=[];if(added&1)names.push("First Rush");if(added&2)names.push("Speedy Crayon");if(added&4)names.push("Rusher");if(added&8)names.push("Super Rusher");
+    unlockMsg.textContent=names.length?"New earned traits: "+names.join(", "):"No new trait, but your best score can still update.";
+    claimBtn.disabled=false;claimMsg.textContent="Claim the verified progress with one testnet transaction.";resultBox.classList.add("show");gameMsg.textContent="Run verified ✓";
+  }catch(e){gameMsg.textContent=e.message;resultBox.classList.remove("show")}
+}
+claimBtn.onclick=async()=>{
+  if(!pendingClaim)return;
+  try{
+    claimBtn.disabled=true;claimBtn.textContent="CONFIRM IN WALLET...";
+    const c=new Contract(state.crayonCoreAddress,CORE_ABI,signer);
+    const p=pendingClaim;
+    const tx=await c.claimProgress(p.tokenId,p.bestScore,p.achievementBits,p.claimId,p.deadline,p.signature);
+    claimMsg.innerHTML=`Claim submitted: <a target="_blank" href="${EXPLORER}/tx/${tx.hash}">${short(tx.hash)} ↗</a>`;
+    await tx.wait();pendingClaim=null;await refresh();claimMsg.textContent="Onchain progress confirmed ✓ Metadata now reads the updated traits.";claimBtn.textContent="CLAIMED ✓";
+  }catch(e){console.error(e);claimMsg.textContent=e.shortMessage||e.message||"Claim failed.";claimBtn.textContent="CLAIM PROGRESS ONCHAIN";claimBtn.disabled=false}
+};
+jumpBtn.onclick=jump;arena.addEventListener("pointerdown",()=>{if(running)jump()});document.addEventListener("keydown",e=>{if(running&&!e.repeat&&["Space","ArrowUp","KeyW"].includes(e.code)){e.preventDefault();jump()}});
+render();
 </script>
 </body>
 </html>

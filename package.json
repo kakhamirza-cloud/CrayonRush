@@ -4,7 +4,11 @@
   "scripts": {
     "dev": "wrangler pages dev . --d1 DB=crayon-rush-db",
     "db:local": "wrangler d1 execute crayon-rush-db --local --file=./schema.sql",
-    "db:remote": "wrangler d1 execute crayon-rush-db --remote --file=./schema.sql"
+    "db:remote": "wrangler d1 execute crayon-rush-db --remote --file=./schema.sql",
+    "core:migrate": "wrangler d1 execute crayon-rush-db --remote --file=./core-migration.sql"
+  },
+  "dependencies": {
+    "viem": "^2.37.3"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"
