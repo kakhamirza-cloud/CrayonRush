@@ -3,6 +3,7 @@
   "name": "crayon-rush",
   "compatibility_date": "2026-08-23",
   "pages_build_output_dir": ".",
+
   "d1_databases": [
     {
       "binding": "DB",
@@ -10,7 +11,16 @@
       "database_id": "7fa029f8-dcad-48b8-9332-34535e45021c"
     }
   ],
+
   "vars": {
-    "CRAYON_RUSH_X": "CrayonRush"
+    "CRAYON_RUSH_X": "CrayonRush",
+
+    "TEST_CRAYON_ADDRESS": "0xcc35A4A8B906c72E58edfa8ac296B1E1e9263A51",
+    "CRAYON_CORE_ADDRESS": "0xe3d3E4f1E629D7778c0C95f763EDe49CB367FF97",
+
+    "RH_TESTNET_RPC": "https://rpc.testnet.chain.robinhood.com",
+
+    "FAUCET_AMOUNT_ETH": "0.002",
+    "FAUCET_SKIP_IF_BALANCE_ETH": "0.001"
   }
 }
