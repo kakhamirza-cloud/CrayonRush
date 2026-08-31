@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crayon Rush</title>
+<meta name="description" content="Crayon Rush, a Crayon Art NFT world inspired by childhood imagination.">
+<meta property="og:title" content="Crayon Rush">
+<meta property="og:description" content="Crayon art. Childhood nostalgia. Still running.">
+<meta property="og:image" content="/assets/banner.png">
+<meta name="theme-color" content="#f8efd8">
+<style>
+:root{--paper:#f8efd8;--paper2:#fff8e9;--ink:#29211b;--blue:#1768c9;--red:#e74b35;--yellow:#efb91d;--green:#2c9b58;--purple:#7e55bd;--orange:#ef7d24;--max:1180px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:radial-gradient(circle at 25% 10%,rgba(255,255,255,.85),transparent 34%),repeating-linear-gradient(0deg,rgba(79,52,30,.025) 0 1px,transparent 1px 5px),var(--paper);font-family:"Comic Sans MS","Trebuchet MS",system-ui,sans-serif;overflow-x:hidden}img{display:block;max-width:100%}a{color:inherit}.wrap{width:min(var(--max),calc(100% - 34px));margin:auto}
+nav{position:sticky;top:0;z-index:50;background:rgba(248,239,216,.94);backdrop-filter:blur(10px);border-bottom:3px solid var(--ink)}.navin{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{text-decoration:none;font-size:clamp(23px,3vw,36px);font-weight:1000;letter-spacing:-.06em;white-space:nowrap}.logo .a{color:var(--red)}.logo .b{color:var(--blue)}.logo .c{color:var(--yellow)}.logo .d{color:var(--green)}.logo .e{color:var(--purple)}.logo .f{color:var(--orange)}.logo strong{color:var(--blue)}.links{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.links a{text-decoration:none;font-weight:900}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 18px;border:3px solid var(--ink);border-radius:16px 13px 18px 14px;background:var(--paper2);text-decoration:none;font-weight:1000;box-shadow:4px 5px 0 var(--ink);transition:.15s}.btn:hover{transform:translate(-1px,-1px);box-shadow:6px 7px 0 var(--ink)}.btn.blue{background:var(--blue);color:#fff}.btn.yellow{background:#ffd544}.btn.disabled{opacity:.55;cursor:not-allowed;box-shadow:2px 3px 0 var(--ink)}
+.hero{padding:28px 0 56px}.banner{border:4px solid var(--ink);border-radius:22px;overflow:hidden;box-shadow:8px 10px 0 var(--ink);background:var(--paper2)}.banner img{width:100%;aspect-ratio:2.45/1;object-fit:cover}.herocopy{max-width:820px;text-align:center;margin:36px auto 0}.eyebrow{font-size:12px;font-weight:1000;letter-spacing:.14em;text-transform:uppercase;opacity:.62}.herocopy h1{font-size:clamp(42px,7vw,82px);line-height:.92;letter-spacing:-.065em;margin:10px 0 18px}.herocopy h1 .blue{color:var(--blue)}.herocopy h1 .green{color:var(--green)}.herocopy h1 .orange{color:var(--orange)}.lead{font-size:clamp(17px,2.2vw,22px);line-height:1.6;max-width:730px;margin:0 auto 24px}.actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.section{padding:72px 0;border-top:3px dashed rgba(41,33,27,.25)}.sectionhead{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:30px}.sectionhead h2{font-size:clamp(36px,5vw,58px);letter-spacing:-.055em;margin:6px 0}.sectionhead p{max-width:520px;font-size:17px;line-height:1.55;margin:0}.scribble{width:145px;height:9px;border-top:6px solid var(--red);border-radius:50%;transform:rotate(-2deg)}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:26px}.paper{background:rgba(255,250,239,.85);border:3px solid var(--ink);border-radius:19px 23px 17px 25px;padding:28px;box-shadow:6px 7px 0 var(--ink);position:relative}.paper:before{content:"";position:absolute;width:74px;height:22px;left:50%;top:-12px;transform:translateX(-50%) rotate(-2deg);background:rgba(217,184,123,.5)}.paper p{font-size:18px;line-height:1.65;margin:0}.quote{font-size:clamp(31px,4vw,52px);line-height:1.04;font-weight:1000;letter-spacing:-.045em}.quote .q1{color:var(--blue)}.quote .q2{color:var(--green)}.quote .q3{color:var(--orange)}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.art{background:#fffaf0;border:3px solid rgba(41,33,27,.78);padding:13px 13px 18px;box-shadow:5px 6px 0 var(--ink);position:relative;transition:.18s}.art:nth-child(1){transform:rotate(-1.2deg)}.art:nth-child(2){transform:rotate(.8deg)}.art:nth-child(3){transform:rotate(-.5deg)}.art:nth-child(4){transform:rotate(1.1deg)}.art:hover{transform:translateY(-5px)}.art:before{content:"";position:absolute;width:68px;height:21px;left:50%;top:-12px;transform:translateX(-50%) rotate(-2deg);background:rgba(218,188,134,.62);z-index:2}.art img{width:100%;aspect-ratio:1/1;object-fit:cover;border:2px solid rgba(41,33,27,.15)}.art h3{font-size:20px;margin:13px 4px 0}.art p{font-size:12px;opacity:.55;margin:4px}
+.game{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}.gamebox{background:repeating-linear-gradient(0deg,transparent 0 37px,rgba(23,104,201,.12) 37px 39px),#fffaf0;border:4px solid var(--ink);border-radius:22px;padding:34px;box-shadow:7px 8px 0 var(--ink)}.gamebox h2{font-size:clamp(42px,6vw,68px);color:var(--blue);margin:6px 0 14px}.gamebox p{font-size:19px;line-height:1.6}.rules{display:grid;gap:13px}.rule{display:flex;align-items:center;gap:12px;border:3px solid var(--ink);border-radius:15px;background:var(--paper2);padding:16px 18px;font-weight:900}.rule b{font-size:24px;width:34px;text-align:center}
+.community{text-align:center}.community h2{font-size:clamp(40px,6vw,66px);margin:8px 0 15px}.community p{font-size:19px;line-height:1.6;max-width:700px;margin:0 auto 24px}.soon{display:inline-block;margin-left:6px;padding:2px 7px;border:2px solid currentColor;border-radius:999px;font-size:10px;letter-spacing:.08em}
+.faq{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}details{background:rgba(255,250,239,.85);border:3px solid var(--ink);border-radius:16px;padding:17px 19px;box-shadow:4px 5px 0 var(--ink)}summary{cursor:pointer;font-weight:1000;font-size:18px}details p{line-height:1.55;margin:12px 0 0;opacity:.8}
+footer{padding:28px 0 42px;border-top:3px solid var(--ink)}.footer{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.small{font-size:13px;opacity:.58}
+@media(max-width:930px){.gallery{grid-template-columns:repeat(2,1fr)}.about,.game{grid-template-columns:1fr}.links .text{display:none}}
+@media(max-width:620px){.wrap{width:min(var(--max),calc(100% - 22px))}.navin{min-height:64px}.hero{padding-top:18px}.banner img{aspect-ratio:1.75/1}.section{padding:54px 0}.sectionhead{display:block}.sectionhead p{margin-top:14px}.gallery,.faq{grid-template-columns:1fr}.paper,.gamebox{padding:22px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap navin">
+<a class="logo" href="#home"><span class="a">C</span><span class="b">R</span><span class="c">A</span><span class="d">Y</span><span class="e">O</span><span class="f">N</span> <strong>RUSH</strong></a>
+<div class="links"><a class="text" href="#about">About</a><a class="text" href="#collection">Collection</a><a class="text" href="/game/">Rush Game</a><a class="text" href="/core/">Crayon Core</a><a class="btn" href="https://x.com/CrayonRush" target="_blank" rel="noopener">𝕏 Follow</a></div>
+</div></nav>
+
+<main>
+<section class="hero" id="home"><div class="wrap">
+<div class="banner"><img src="assets/banner.png" alt="Crayon Rush Crayon Art banner"></div>
+<div class="herocopy"><div class="eyebrow">A Crayon Art NFT world</div>
+<h1><span class="blue">Crayon art.</span><br><span class="green">Childhood nostalgia.</span><br><span class="orange">Still running.</span></h1>
+<p class="lead">Remember drawing before you cared whether it was perfect? Crayon Rush brings that feeling back, rough wax lines, imaginary heroes, weird creatures and the kind of world you could only make as a kid.</p>
+<div class="actions"><a class="btn blue" href="#collection">VIEW THE ART</a><a class="btn yellow" href="/game/">PLAY RUSH</a><a class="btn" href="/core/">CRAYON CORE</a></div>
+</div></div></section>
+
+<section class="section" id="about"><div class="wrap">
+<div class="sectionhead"><div><div class="eyebrow">About Crayon Rush</div><h2>Before everything had to look perfect.</h2><div class="scribble"></div></div>
+<p>Crayon Rush is built around opening a fresh notebook, grabbing whatever color was closest and drawing a whole universe without asking permission.</p></div>
+<div class="about">
+<article class="paper"><p>The characters are intentionally rough, simple and full of motion. They are meant to feel like something you might have drawn after school, a wolf running too fast, a ghost wearing a cape, a red creature racing through the page or a strange hero digging into another imaginary world.</p></article>
+<article class="paper"><div class="quote"><span class="q1">Run.</span><br><span class="q2">Collect.</span><br><span class="q3">Remember what it felt like to draw.</span></div></article>
+</div></div></section>
+
+<section class="section" id="collection"><div class="wrap">
+<div class="sectionhead"><div><div class="eyebrow">Artwork Collection</div><h2>Like pages found in an old sketchbook.</h2><div class="scribble" style="border-color:var(--yellow)"></div></div>
+<p>A growing cast of Crayon Art characters. Different personalities and stories, all tied together by the same waxy, nostalgic world.</p></div>
+<div class="gallery">
+<article class="art"><img src="assets/wolf-runner.png" alt="Wolf Runner crayon artwork"><h3>Wolf Runner</h3><p>CRAYON RUSH ART</p></article>
+<article class="art"><img src="assets/scarlet-dash.png" alt="Scarlet Dash crayon artwork"><h3>Scarlet Dash</h3><p>CRAYON RUSH ART</p></article>
+<article class="art"><img src="assets/ghost-buddy.png" alt="Ghost Buddy crayon artwork"><h3>Ghost Buddy</h3><p>CRAYON RUSH ART</p></article>
+<article class="art"><img src="assets/mole-sprint.png" alt="Mole Sprint crayon artwork"><h3>Mole Sprint</h3><p>CRAYON RUSH ART</p></article>
+</div></div></section>
+
+<section class="section" id="game"><div class="wrap"><div class="game">
+<div class="gamebox"><div class="eyebrow">Crayon Rush Game</div><h2>RUSH 🖍️</h2>
+<p>Crayon Rush is not only something to collect, it is something to play. Race, improve your daily run, climb the board and build Rush Points.</p>
+<p>The Rush game is live inside the website. Enter your X handle, pick a runner, compete daily and build Rush Points.</p>
+<a class="btn blue" href="/game/">PLAY RUSH →</a>
+</div>
+<div class="rules"><div class="rule"><b>∞</b><span>Play whenever you want.</span></div><div class="rule"><b>★</b><span>Only your best daily run counts.</span></div><div class="rule"><b>🏆</b><span>Daily competition and leaderboard.</span></div><div class="rule"><b>🖍️</b><span>Earn Rush Points through play.</span></div></div>
+</div></div></section>
+
+
+<section class="section" id="core"><div class="wrap">
+<div class="game">
+<div class="gamebox">
+  <div class="eyebrow">Onchain Crayon Tech</div>
+  <h2 style="color:var(--purple)">CRAYON CORE 🖍️</h2>
+  <p>Crayon Core is the onchain layer behind Crayon Rush.</p>
+  <p>Claim a test Crayon, play Rush, unlock achievements and let your Crayon keep its progress on Robinhood Chain.</p>
+  <a class="btn yellow" href="/core/">EXPLORE CRAYON CORE</a>
+</div>
+<div class="rules">
+  <div class="rule"><b>1</b><span>Claim a test Crayon.</span></div>
+  <div class="rule"><b>2</b><span>Play Rush with it.</span></div>
+  <div class="rule"><b>3</b><span>Unlock verified achievements.</span></div>
+  <div class="rule"><b>4</b><span>Keep progress with your Crayon onchain.</span></div>
+</div>
+</div></div></section>
+
+<section class="section community"><div class="wrap"><div class="eyebrow">Community</div><h2>The sketchbook is still open.</h2>
+<p>Follow Crayon Rush for new characters, project updates, game announcements and everything we draw next.</p>
+<div class="actions"><a class="btn blue" href="https://x.com/CrayonRush" target="_blank" rel="noopener">FOLLOW @CRAYONRUSH ON X</a><span class="btn disabled">DISCORD <span class="soon">COMING SOON</span></span></div>
+</div></section>
+
+<section class="section"><div class="wrap"><div class="sectionhead"><div><div class="eyebrow">Quick Notes</div><h2>What is Crayon Rush?</h2></div></div>
+<div class="faq"><details open><summary>What is Crayon Rush?</summary><p>A Crayon Art NFT world built around childhood imagination, characters and play.</p></details>
+<details><summary>Where is the game?</summary><p>Open Rush from the navigation or the Play Rush button. The game lives at /game/ and uses the same Crayon Rush website.</p></details>
+<details><summary>Where is Discord?</summary><p>Discord is coming soon. For now, the official project account is @CrayonRush on X.</p></details>
+<details><summary>What is Crayon Core?</summary><p>Crayon Core is the onchain layer for Crayon Rush. The goal is for a Crayon to keep verified achievements and progress earned through play.</p></details>
+<details><summary>When is mint?</summary><p>Mint details will be announced through the official Crayon Rush account when everything is ready.</p></details></div>
+</div></section>
+</main>
+
+<footer><div class="wrap footer"><a class="logo" href="#home"><span class="a">C</span><span class="b">R</span><span class="c">A</span><span class="d">Y</span><span class="e">O</span><span class="f">N</span> <strong>RUSH</strong></a><div class="small">Crayon Art. Waxy. A little messy on purpose.</div><a href="https://x.com/CrayonRush" target="_blank" rel="noopener">@CrayonRush</a></div></footer>
+</body>
+</html>
